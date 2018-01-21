@@ -1,0 +1,39 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    notes.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dgerard <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/01/20 18:51:22 by dgerard           #+#    #+#              #
+#    Updated: 2018/01/20 19:35:42 by dgerard          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+__DIJKSTRA'S ALGORITHM___________
+~ Be at the starting node
+	>> have lists of visited and unvisited nodes
+	>> for each node, keep track of
+		>> known shortest distance from start
+		>> previous node
+~ look for the shortest path to any unvisited adjacent node
+~ if the path you find to the ndoe is th shortest to start, replace
+~ move to the node that is shortest distance from last
+~ add distance from start to distance to next nodes from there
+~ go with lowest total distance
+
+more simply:
+
+>> Let the distance of start vertex from start vertex = 0
+>> LEt the ditance of all the other vertices from start = infinity
+
+>> While shortest path looking
+	>> visit the unvisited vertex with the smallest know distance from the start vertex 
+	>> for the current vertex examine its unvisited neighbors
+	>> for the current vertex, calculate distance of each neighbor from start vertex
+	>> if the calculated distance of a vertex is less than the known distance, update the shortest distance
+	>> update the previous vertex for each of the updated distances
+	>> add the current vertex to the visited vertex list
+	>> add the current vertex to the list of visited vertices
+>> Until all vertices visited
+
