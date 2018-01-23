@@ -17,18 +17,17 @@ __DIJKSTRA'S ALGORITHM___________
 		>> known shortest distance from start
 		>> previous node
 ~ look for the shortest path to any unvisited adjacent node
-~ if the path you find to the ndoe is th shortest to start, replace
+~ if the path you find to the node is the shortest to start, replace
 ~ move to the node that is shortest distance from last
 ~ add distance from start to distance to next nodes from there
 ~ go with lowest total distance
-
 more simply:
 
 >> Let the distance of start vertex from start vertex = 0
->> LEt the ditance of all the other vertices from start = infinity
+>> Let the distance of all the other vertices from start = infinity
 
 >> While shortest path looking
-	>> visit the unvisited vertex with the smallest know distance from the start vertex 
+	>> visit the unvisited vertex with the smallest know distance from the start vertex
 	>> for the current vertex examine its unvisited neighbors
 	>> for the current vertex, calculate distance of each neighbor from start vertex
 	>> if the calculated distance of a vertex is less than the known distance, update the shortest distance
@@ -37,3 +36,25 @@ more simply:
 	>> add the current vertex to the list of visited vertices
 >> Until all vertices visited
 
+__PLANNING BEFORE START___________
+
+To move all the ants within the shortest amount of time
+~ you need to find the shortest path
+~ but you need to also to find all possible entrance points into the last room
+~ and from there, you need to find the shortest non intersecting path(s) that will
+	allow the ants to move into the last tunnel in as large a number as possible
+
+
+memorize_rooms
+learn_connections
+find paths
+	>> save paths into char arrays in a struct?
+	>> then just print the
+send ants
+	>> print from the paths array correctly
+destroy colony
+	>> free eveything correctly!
+
+thanks Ian
+>> make sure you do not overlap paths
+>> record visited and unvisited rooms
