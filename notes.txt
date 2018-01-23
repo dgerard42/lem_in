@@ -58,3 +58,8 @@ destroy colony
 thanks Ian
 >> make sure you do not overlap paths
 >> record visited and unvisited rooms
+
+Brandon
+>> 2 linked lists
+>> one list of nodes (rooms)
+>> one list of connections to all the other nodes
