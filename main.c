@@ -6,7 +6,7 @@
 /*   By: dgerard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 22:42:07 by dgerard           #+#    #+#             */
-/*   Updated: 2018/01/19 22:42:08 by dgerard          ###   ########.fr       */
+/*   Updated: 2018/01/24 09:21:35 by sbalcort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			main()
 		}
 		ft_memdel((void**)&swarm.sight);
 	}
-	find_paths(&swarm);
-	send_ants(&swarm);
+	find_paths(&swarm);	//sergios part
+	send_ants(&swarm);	//also sergios part ?
 	destroy_colony(&swarm);
 }
