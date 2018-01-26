@@ -27,10 +27,13 @@ more simply:
 >> Let the distance of all the other vertices from start = infinity
 
 >> While shortest path looking
-	>> visit the unvisited vertex with the smallest know distance from the start vertex
+	>> visit the unvisited vertex with the smallest know distance from the start
+		vertex
 	>> for the current vertex examine its unvisited neighbors
-	>> for the current vertex, calculate distance of each neighbor from start vertex
-	>> if the calculated distance of a vertex is less than the known distance, update the shortest distance
+	>> for the current vertex, calculate distance of each neighbor from start
+		vertex
+	>> if the calculated distance of a vertex is less than the known distance,
+		update the shortest distance
 	>> update the previous vertex for each of the updated distances
 	>> add the current vertex to the visited vertex list
 	>> add the current vertex to the list of visited vertices
@@ -41,9 +44,9 @@ __PLANNING BEFORE START___________
 To move all the ants within the shortest amount of time
 ~ you need to find the shortest path
 ~ but you need to also to find all possible entrance points into the last room
-~ and from there, you need to find the shortest non intersecting path(s) that will
-	allow the ants to move into the last tunnel in as large a number as possible
-
+~ and from there, you need to find the shortest non intersecting path(s) that
+	will allow the ants to move into the last tunnel in as large a number as
+	possible
 
 memorize_rooms
 learn_connections
@@ -63,3 +66,8 @@ Brandon
 >> 2 linked lists
 >> one list of nodes (rooms)
 >> one list of connections to all the other nodes
+
+__TASKS TO COMPLETE___________
+>> use ft_strchr instead of ft_strstr when you look for only one symbol
+>> change how you are determining the end of the room section
+	the ##end and ##start can both be at the beginning!!
