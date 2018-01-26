@@ -13,7 +13,7 @@
 # include "lem_in.h"
 
 /*
-**
+**distance formula for finding the distance between 2 rooms
 */
 
 int			find_distance(t_room *room_a, t_room *room_b)
@@ -26,18 +26,21 @@ int			find_distance(t_room *room_a, t_room *room_b)
 }
 
 /*
-**
+**allocate for the new tunnel node
+**traverse room linked list until you find the second room in the link
+**save that room to the to_room pointer in thw new tunnel node
+**traverse linked list again until you find the first room in the link
+**find the distance between linked rooms, save to length in new tunnel node
+**save the new tunnel node to the end of the tunnel linked list of room it starts in
 */
 
 void		learn_connection(t_swarm *swarm)
 {
 	t_tunnel 	*new_tunnel;
-	// char		*look;
-	t_tunnel	colony_ptr;
+	t_room		colony_ptr;
 	char		**linked_rooms;
 
 	new_tunnel = tunnel_lstnew(void);
-	// look = swarm->sight;
 	colony_ptr = swarm->colony;
 	linked_rooms = ft_strsplit(swarm->sight);
 	while(ft_strcmp(colony_ptr->name, linked_rooms[1]))
@@ -46,8 +49,15 @@ void		learn_connection(t_swarm *swarm)
 	colony_ptr = swarm->colony;
 	while(ft_strcmp(colony_ptr->name, linked_rooms[0]))
 		colony_ptr = colony_ptr->next;
-	colony_ptr->tunnels = new_tunnel;
-
+	new_tunnel->length = find_distance(colony_ptr, new_tunnel->to_room);
+	if (colony_ptr->tunnels == NULL)
+		colony_ptr->tunnels = new_tunnel;
+	else
+	{
+		tunnel_lstiter(colony_ptr->tunnels);
+		(colony_ptr->tunnels)->next = new_tunnel;
+	}
+	ft_2dfreearray(linked_rooms, 2);
 }
 
 /*
@@ -88,7 +98,7 @@ void		memorize_rooms(t_swarm *swarm, int room_type)
 	}
 }
 
-int			main()
+int			main(void)
 {
 	t_swarm	swarm;
 	char	done;
@@ -127,7 +137,7 @@ int			main()
 		}
 		ft_memdel((void**)&swarm.sight);
 	}
-	find_paths(&swarm);	//sergios part
-	send_ants(&swarm);	//also sergios part ?
-	destroy_colony(&swarm);
+	// find_paths(&swarm);	//sergios part
+	// send_ants(&swarm);	//also sergios part ?
+	// destroy_colony(&swarm);
 }
