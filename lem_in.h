@@ -13,6 +13,10 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
+# include "libft.h"
+# include <math.h>
+# include <stdbool.h>
+
 typedef	struct		s_room
 {
 	char		*name;
@@ -42,5 +46,10 @@ typedef	struct		s_swarm
 	char	*sight;
 	char	**path; //1st lvl = room names in path, 2nd lvl = room names
 }					t_swarm;
+
+void		room_lstiter(t_room *room);
+void		tunnel_lstiter(t_tunnel *tunnel);
+t_room		*room_lstnew(void);
+t_tunnel	*tunnel_lstnew(void);
 
 #endif
