@@ -19,6 +19,7 @@ LIBFT = libft/libft.a\
 PRINTF = printf/libftprintf.a\
 
 SRCS =	main.c\
+		ll_fts_0.c\
 
 ODIR = ofiles
 
