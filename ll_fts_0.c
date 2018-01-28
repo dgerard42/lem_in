@@ -24,12 +24,13 @@ void		tunnel_lstiter(t_tunnel *tunnel)
 		tunnel = tunnel->next;
 }
 
-t_room		*room_lstnew(void)
+t_room		*room_lstnew(int room_type)
 {
 	t_room *new_room;
 
-	new_room = (s_room*)malloc(sizeof(s_room));
+	new_room = (t_room*)malloc(sizeof(struct s_room));
 	ft_bzero(new_room, sizeof(s_room));
+	new_room->room_type = room_type;
 	return (new_room);
 }
 
