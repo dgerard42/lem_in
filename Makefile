@@ -12,7 +12,7 @@
 
 NAME = lem-in
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 LIBFT = libft/libft.a\
 

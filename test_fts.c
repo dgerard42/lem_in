@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lem-in.h"
+# include "lem_in.h"
+# include <fcntl.h>
 
 void			check_inputs(t_swarm *swarm)
 {
@@ -27,4 +28,9 @@ void			check_inputs(t_swarm *swarm)
 		}
 		colony_ptr++;
 	}
+}
+
+void				open_testfiles(t_swarm *swarm)
+{
+	swarm->fd = open("maps/map_0.map", O_RDONLY);
 }

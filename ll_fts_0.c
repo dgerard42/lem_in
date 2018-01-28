@@ -29,16 +29,16 @@ t_room		*room_lstnew(int room_type)
 	t_room *new_room;
 
 	new_room = (t_room*)malloc(sizeof(struct s_room));
-	ft_bzero(new_room, sizeof(s_room));
+	ft_bzero(new_room, sizeof(struct s_room));
 	new_room->room_type = room_type;
 	return (new_room);
 }
 
 t_tunnel	*tunnel_lstnew(void)
 {
-	t_room *new_tunnel;
+	t_tunnel *new_tunnel;
 
-	new_tunnel = (s_tunnel*)malloc(sizeof(s_tunnel));
-	ft_bzero(new_tunnel, sizeof(s_tunnel));
+	new_tunnel = (t_tunnel*)malloc(sizeof(struct s_tunnel));
+	ft_bzero(new_tunnel, sizeof(struct s_tunnel));
 	return (new_tunnel);
 }
