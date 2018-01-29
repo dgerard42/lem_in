@@ -34,7 +34,7 @@ int			find_distance(t_room *room_a, t_room *room_b)
 **save the new tunnel node to the end of the tunnel linked list of room it starts in
 */
 
-void		learn_connection(t_swarm *swarm)
+void			learn_connection(t_swarm *swarm)
 {
 	t_tunnel 	*new_tunnel;
 	t_room		*colony_ptr;
@@ -61,7 +61,7 @@ void		learn_connection(t_swarm *swarm)
 **add the pointer to the new node to the end of the list in the main struct
 */
 
-void		memorize_rooms(t_swarm *swarm, int room_type)
+void			memorize_rooms(t_swarm *swarm, int room_type)
 {
 	int		i;
 	t_room	*new_room;
@@ -90,51 +90,41 @@ void		memorize_rooms(t_swarm *swarm, int room_type)
 **declare new base struct on the stack and zero it out
 **read through the input to stdin using gnl & freeing as you go
 **check every line read to see if it is a room or a connection
-**send lines to their appropriate functions
-**skip lines with comments
+**send lines to their appropriate functions with room types
+**skip lines with comments or commands
 */
 
-int			main(void)
+void			scan_colony(t_swarm *swarm)
+{
+	int	room_type;
+
+	room_type =	2;
+	if (ft_strchr(swarm->sight, '#'))
+	{
+		room_type = (ft_strstr(swarm->sight, "##start")) ? 1 : 2;
+		room_type = (ft_strstr(swarm->sight, "##end")) ? 0 : 2;
+		ft_memdel((void**)&swarm->sight);
+		get_next_line(swarm->fd, &swarm->sight);
+	}
+	if (!(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
+		memorize_rooms(swarm, room_type);
+	if (ft_strchr(swarm->sight, '-'))
+		learn_connection(swarm);
+}
+
+int				main(void)
 {
 	t_swarm	swarm;
-	int		done;
-	int		room_type;
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	done = 0;
 	open_testfiles(&swarm); //RM @END
 	while (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
-		room_type = -1;
-		if (done < 2)
-		{
-			if (ft_strstr(swarm.sight, "#")) //ft_strchr
-			{
-				room_type = (ft_strstr(swarm.sight, "##start")) ? 1 : 2;
-				room_type = (ft_strstr(swarm.sight, "##end")) ? 0 : 2;
-				if (room_type == 0|| room_type == 1)
-					done += 1;
-				ft_memdel((void**)&swarm.sight);
-				get_next_line(swarm.fd, &swarm.sight);
-			}
-			else
-				room_type = 2;
-			if (room_type != -1)
-				memorize_rooms(&swarm, room_type);
-		}
-		else if (done >= 2)
-		{
-			if (ft_strstr(swarm.sight, "#"))
-			{
-				ft_memdel((void**)&swarm.sight);
-				get_next_line(swarm.fd, &swarm.sight);
-			}
-			learn_connection(&swarm);
-		}
-		ft_memdel((void**)&swarm.sight);
+		scan_colony(&swarm);
+ 		ft_memdel((void**)&swarm.sight);
 	}
 	// find_paths(&swarm);	//sergios part
 	// send_ants(&swarm);	//also sergios part ?
-	// destroy_colony(&swarm);
 	check_inputs(&swarm);
+	destroy_colony(&swarm);
 }

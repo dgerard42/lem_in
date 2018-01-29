@@ -25,7 +25,6 @@ typedef	struct			s_room
 	int					x_coord;
 	int					y_coord;
 	bool				visited;
-	int					connections;	//number of tunnels there are, so you know how far
 	struct	s_tunnel	*tunnels;		//the head of the linked list of tunnels which are connected to the room
 	struct 	s_room		*next;		 	//pointers to next malloced room
 }						t_room;
@@ -47,10 +46,9 @@ typedef	struct			s_swarm
 	int					fd;				//REMOVE @END
 }						t_swarm;
 
-void					room_lstiter(t_room *room);
-void					tunnel_lstiter(t_tunnel *tunnel);
 t_room					*room_lstnew(int room_type);
 t_tunnel				*tunnel_lstnew(void);
+void					destroy_colony(t_swarm *swarm);
 
 /*
 **test functions below. remove in the final version
