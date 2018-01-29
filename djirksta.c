@@ -3,10 +3,9 @@
 
 typedef struct		s_queue
 {
-	struct s_room	*start;
-	struct s_room	*end;
-	float			distance;
-
+	struct s_room	*origin;
+	struct s_room	*destination;
+	
 	struct t_queue	*next;
 	struct t_queue	*last;
 }					t_queue;
