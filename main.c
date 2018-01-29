@@ -50,14 +50,7 @@ void		learn_connection(t_swarm *swarm)
 	while(ft_strcmp(colony_ptr->name, linked_rooms[0]))
 		colony_ptr = colony_ptr->next;
 	new_tunnel->length = find_distance(colony_ptr, new_tunnel->to_room);
-	// if (colony_ptr->tunnels == NULL)
-	// 	colony_ptr->tunnels = new_tunnel;
-	// else
-	// {
-	// 	tunnel_lstiter(colony_ptr->tunnels);
-	// 	(colony_ptr->tunnels)->next = new_tunnel;
-	// }
-	new_tunnel->next = (colony_ptr->tunnels)->next;
+	new_tunnel->next = colony_ptr->tunnels;
 	colony_ptr->tunnels = new_tunnel;
 	ft_2dfreearray((void**)linked_rooms, 2);
 }
@@ -73,12 +66,10 @@ void		memorize_rooms(t_swarm *swarm, int room_type)
 	int		i;
 	t_room	*new_room;
 	char	*look;
-	// t_room	*colony_ptr;
 
 	i = 0;
 	new_room = room_lstnew(room_type);
 	look = swarm->sight;
-	// colony_ptr = swarm->colony;
 	while (look[i] != ' ')
 		i++;
 	new_room->name = ft_strnew(i);
@@ -91,13 +82,6 @@ void		memorize_rooms(t_swarm *swarm, int room_type)
 		look++;
 	look++;
 	new_room->y_coord = ft_atoi(look);
-	// if (colony_ptr == NULL)
-	// 	colony_ptr = new_room;
-	// else
-	// {
-	// 	room_lstiter(colony_ptr);
-	// 	colony_ptr->next = new_room;
-	// }
 	new_room->next = swarm->colony;
 	swarm->colony = new_room;
 }
@@ -126,12 +110,12 @@ int			main(void)
 		{
 			if (ft_strstr(swarm.sight, "#")) //ft_strchr
 			{
-				room_type = (ft_strstr(swarm.sight, "##start")) ? 1 : room_type;
-				room_type = (ft_strstr(swarm.sight, "##end")) ? 0 : room_type;
-				ft_memdel((void**)&swarm.sight);
-				get_next_line(swarm.fd, &swarm.sight);
+				room_type = (ft_strstr(swarm.sight, "##start")) ? 1 : 2;
+				room_type = (ft_strstr(swarm.sight, "##end")) ? 0 : 2;
 				if (room_type == 0|| room_type == 1)
 					done += 1;
+				ft_memdel((void**)&swarm.sight);
+				get_next_line(swarm.fd, &swarm.sight);
 			}
 			else
 				room_type = 2;

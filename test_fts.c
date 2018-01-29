@@ -24,9 +24,9 @@ void			check_inputs(t_swarm *swarm)
 		while (colony_ptr->tunnels != NULL)
 		{
 			ft_printf("TUNNEL FROM %s to %s\n", colony_ptr->name, ((colony_ptr->tunnels)->to_room)->name);
-			colony_ptr->tunnels++;
+			colony_ptr->tunnels = (colony_ptr->tunnels)->next;
 		}
-		colony_ptr++;
+		colony_ptr = colony_ptr->next;
 	}
 }
 
