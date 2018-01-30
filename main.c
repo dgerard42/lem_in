@@ -123,8 +123,9 @@ int				main(void)
 		scan_colony(&swarm);
  		ft_memdel((void**)&swarm.sight);
 	}
+	ft_printf("\n\t\tsergio's part start here \n");
 	bfs(&swarm);	//sergios part
 	// send_ants(&swarm);	//also sergios part ?
-	check_inputs(&swarm);
+	//check_inputs(&swarm);
 	destroy_colony(&swarm);
 }

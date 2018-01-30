@@ -7,8 +7,8 @@ typedef struct		s_queue
     int             distance;          //for counting number of nodes between
 
 
-	struct t_queue	*next;          //tracking within queue
-	struct t_queue	*last;
+	struct s_queue	*next;          //tracking within queue
+	struct s_queue	*last;
 }					t_queue;
 
 /*
@@ -57,7 +57,7 @@ int     node_already_visited(t_queue *current, t_room *room)
     {
         if (current->destination == room && current->destination->visited == true)
             return (1);
-        current->next;
+        current = current->next;
     }
     return (0);
 }
@@ -67,7 +67,7 @@ int     node_already_visited(t_queue *current, t_room *room)
 ** the current path
 */
 
-void    add_to_queue(t_queue *head, t_queue *current, t_room *rm)
+void    add_to_queue(t_queue *current, t_room *rm)
 {
     int    dist;
     t_queue *tmp;
@@ -84,7 +84,7 @@ void    add_to_queue(t_queue *head, t_queue *current, t_room *rm)
 void        assemble_path(t_queue *head, t_swarm *swarm)
 {
     t_queue     *tmp;
-    int         i;
+   // int         i;
     int         count;
     t_queue     *last;
 
@@ -96,7 +96,7 @@ void        assemble_path(t_queue *head, t_swarm *swarm)
     swarm->path[--count] = NULL;
     while (count >= 0)
     {
-        swarm->path[count--] = ft_strnew(tmp->destination->name);
+        swarm->path[count--] = ft_strdup(tmp->destination->name);
         last = tmp->origin;
         while (tmp->destination != last)
             tmp = tmp->last;
@@ -114,7 +114,6 @@ void		bfs(t_swarm *swarm)
     t_queue     *current;
     t_tunnel    *tmp_tunnel;
     t_room      *tmp_room;
-    t_queue     *tmp_q;
 
     tmp_room = swarm->colony;
     head = init_queue(swarm);
@@ -124,7 +123,7 @@ void		bfs(t_swarm *swarm)
         while (tmp_tunnel != NULL)
         {
             tmp_tunnel = tmp_room->tunnels;
-            if (node_already_visted(head, tmp_tunnel->to_room))           //if already visited continue
+            if (node_already_visited(head, tmp_tunnel->to_room))           //if already visited continue
                 continue ;
             else
                 add_to_queue(current, tmp_tunnel->to_room);     //adding room to queue

@@ -21,13 +21,13 @@ SRCS = 	ft_printf.c\
 		print_numbers.c\
 		outputs.c\
 
-LIBFT = libft/ft_atoi.c\
-		libft/ft_isdigit.c\
-		libft/ft_strlen.c\
-		libft/ft_power_ll.c\
-		libft/ft_power_ull.c\
-		libft/ft_numlen_ll.c\
-		libft/ft_numlen_ull.c\
+LIBFT = ../libft/ft_atoi.c\
+		../libft/ft_isdigit.c\
+		../libft/ft_strlen.c\
+		../libft/ft_power_ll.c\
+		../libft/ft_power_ull.c\
+		../libft/ft_numlen_ll.c\
+		../libft/ft_numlen_ull.c\
 
 LIBFTDIR = libft
 

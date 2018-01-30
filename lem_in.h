@@ -56,5 +56,7 @@ void					destroy_colony(t_swarm *swarm);
 
 void					check_inputs(t_swarm *swarm);
 void					open_testfiles(t_swarm *swarm);
+void					bfs(t_swarm *swarm);
+
 
 #endif
