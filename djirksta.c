@@ -5,6 +5,7 @@ typedef struct		s_queue
 {
 	struct s_room	*origin;
 	struct s_room	*destination;
+	int				distance;
 	
 	struct t_queue	*next;
 	struct t_queue	*last;

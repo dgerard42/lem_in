@@ -123,7 +123,7 @@ int				main(void)
 		scan_colony(&swarm);
  		ft_memdel((void**)&swarm.sight);
 	}
-	// find_paths(&swarm);	//sergios part
+	bfs(&swarm);	//sergios part
 	// send_ants(&swarm);	//also sergios part ?
 	check_inputs(&swarm);
 	destroy_colony(&swarm);
