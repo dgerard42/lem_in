@@ -40,8 +40,12 @@ t_queue     *init_queue(t_swarm *swarm)
     t_room      *tmp_room;
 
    tmp_room = swarm->colony;
-    while (tmp_room->room_type != 1)
+    while (tmp_room != NULL)
+    {
+        if (tmp_room->room_type == 1)
+            break ;
         tmp_room = tmp_room->next;
+    }
     temp = new_queue(tmp_room, NULL, 0);
     return (temp);
 }
@@ -53,9 +57,10 @@ t_queue     *init_queue(t_swarm *swarm)
 
 int     node_already_visited(t_queue *current, t_room *room)
 {
-    while (current)
+    (void)room;
+    while (current != NULL)
     {
-        if (current->destination == room && current->destination->visited == true)
+        if (current->destination != NULL && current->destination->visited == true)
             return (1);
         current = current->next;
     }
@@ -97,9 +102,8 @@ void        assemble_path(t_queue *head, t_swarm *swarm)
     while (count >= 0)
     {
         swarm->path[count--] = ft_strdup(tmp->destination->name);
-        last = tmp->origin;
-        while (tmp->destination != last)
-            tmp = tmp->last;
+        if (tmp->last != NULL)
+            last = tmp->last;
     }
 }
 
@@ -120,11 +124,14 @@ void		bfs(t_swarm *swarm)
     current = head;
     while (tmp_room != NULL)     //while all nodes not visited //change this to if current node is == end node.
     {
+        tmp_tunnel = tmp_room->tunnels;
         while (tmp_tunnel != NULL)
         {
-            tmp_tunnel = tmp_room->tunnels;
             if (node_already_visited(head, tmp_tunnel->to_room))           //if already visited continue
+            {   
+                tmp_tunnel = tmp_tunnel->next; 
                 continue ;
+            }
             else
                 add_to_queue(current, tmp_tunnel->to_room);     //adding room to queue
             if (tmp_tunnel->to_room->room_type == 0)
