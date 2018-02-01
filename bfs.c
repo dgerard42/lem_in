@@ -34,7 +34,7 @@ t_queue      *new_queue(t_room *start, t_room *end, int dist)
 **finds the starting room in linked list for initial queue
 */
 
-t_queue     *init_queue(t_swarm *swarm)
+t_queue     *init_queue(t_swarm *swarm) //here dont go down tunnels. go down colon ptr from swarm.
 {
     t_queue     *temp;
     t_room      *tmp_room;
@@ -46,7 +46,8 @@ t_queue     *init_queue(t_swarm *swarm)
             break ;
         tmp_room = tmp_room->next;
     }
-    temp = new_queue(tmp_room, NULL, 0);
+    temp = new_queue(NULL , tmp_room, 0);
+    temp->destination->visited = true;
     return (temp);
 }
 
@@ -57,10 +58,9 @@ t_queue     *init_queue(t_swarm *swarm)
 
 int     node_already_visited(t_queue *current, t_room *room)
 {
-    (void)room;
     while (current != NULL)
     {
-        if (current->destination != NULL && current->destination->visited == true)
+        if (current->destination != NULL && room->visited == true)
             return (1);
         current = current->next;
     }
@@ -107,7 +107,6 @@ void        assemble_path(t_queue *head, t_swarm *swarm)
     }
 }
 
-
 // last took off here
 //find a way to back check with previous queued items
 //if current assesment is a shorter path place new item in proper place of queue
@@ -127,7 +126,7 @@ void		bfs(t_swarm *swarm)
         tmp_tunnel = tmp_room->tunnels;
         while (tmp_tunnel != NULL)
         {
-            if (node_already_visited(head, tmp_tunnel->to_room))           //if already visited continue
+            if (tmp_tunnel->to_room->visited == true)           //if already visited continue
             {   
                 tmp_tunnel = tmp_tunnel->next; 
                 continue ;
