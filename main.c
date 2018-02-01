@@ -34,25 +34,22 @@ int			find_distance(t_room *room_a, t_room *room_b)
 **save the new tunnel node to the end of the tunnel linked list of room it starts in
 */
 
-void			learn_connection(t_swarm *swarm)
+void			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 {
-	t_tunnel 	*new_tunnel;
+	t_tunnel	*new_tunnel;
 	t_room		*colony_ptr;
-	char		**linked_rooms;
 
 	new_tunnel = tunnel_lstnew();
 	colony_ptr = swarm->colony;
-	linked_rooms = ft_strsplit(swarm->sight, '-');
-	while(ft_strcmp(colony_ptr->name, linked_rooms[1]))
+	while(ft_strcmp(colony_ptr->name, room_a))
 		colony_ptr = colony_ptr->next;
 	new_tunnel->to_room = colony_ptr;
 	colony_ptr = swarm->colony;
-	while(ft_strcmp(colony_ptr->name, linked_rooms[0]))
+	while(ft_strcmp(colony_ptr->name, room_b))
 		colony_ptr = colony_ptr->next;
 	new_tunnel->length = find_distance(colony_ptr, new_tunnel->to_room);
 	new_tunnel->next = colony_ptr->tunnels;
 	colony_ptr->tunnels = new_tunnel;
-	ft_2dfreearray((void**)linked_rooms, 2);
 }
 
 /*
@@ -96,7 +93,8 @@ void			memorize_rooms(t_swarm *swarm, int room_type)
 
 void			scan_colony(t_swarm *swarm)
 {
-	int	room_type;
+	int		room_type;
+	char	**linked_rooms;
 
 	room_type =	2;
 	if (ft_strchr(swarm->sight, '#'))
@@ -109,7 +107,12 @@ void			scan_colony(t_swarm *swarm)
 	if (!(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
 		memorize_rooms(swarm, room_type);
 	if (ft_strchr(swarm->sight, '-'))
-		learn_connection(swarm);
+	{
+		linked_rooms = ft_strsplit(swarm->sight, '-');
+		learn_connection(swarm, linked_rooms[0], linked_rooms[1]);
+		learn_connection(swarm, linked_rooms[1], linked_rooms[0]);
+		ft_2dfreearray((void**)linked_rooms, 2);
+	}
 }
 
 int				main(void)
