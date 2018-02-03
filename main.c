@@ -121,13 +121,17 @@ int				main(void)
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
 	open_testfiles(&swarm); //RM @END
+	get_next_line(swarm.fd, &swarm.sight);
+	swarm.ants = ft_atoi(swarm.sight);
+	ft_memdel((void**)&swarm.sight);
 	while (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		scan_colony(&swarm);
  		ft_memdel((void**)&swarm.sight);
 	}
-	bfs(&swarm);	//sergios part
-	// send_ants(&swarm);	//also sergios part ?
-	check_inputs(&swarm);
+	bfs(&swarm);
+	send_ants(&swarm);
+	// check_inputs(&swarm);
+	check_paths(swarm.path);
 	destroy_colony(&swarm);
 }

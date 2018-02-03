@@ -13,6 +13,18 @@
 # include "lem_in.h"
 # include <fcntl.h>
 
+void			check_paths(char **paths)
+{
+	int	a;
+
+	a = 0;
+	while (paths[a] != '\0')
+	{
+		ft_printf("%d. %s\n", a, paths[a]);
+		a++;
+	}
+}
+
 void			check_inputs(t_swarm *swarm)
 {
 	t_room *colony_ptr;

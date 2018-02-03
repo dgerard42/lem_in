@@ -71,3 +71,16 @@ __TASKS TO COMPLETE___________
 >> use ft_strchr instead of ft_strstr when you look for only one symbol
 >> change how you are determining the end of the room section
 	the ##end and ##start can both be at the beginning!!
+
+>> make the ant printing functions
+>> make Sergio make his freeing functions
+>> do rigorous map input testing
+>> do rigourous memory leak testing
+>> norm everything (last)
+
+__SEND ANTS PSEUDOCODE___________
+while all ants aren't done
+	increase sent ants if all ants haven't been sent
+	set the number of ants to be printed (sent ants - done ants)
+	set the room as equal to the
+	while the ants for this cycle aren't done printing

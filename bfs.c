@@ -52,7 +52,7 @@ t_queue     *init_queue(t_swarm *swarm) //here dont go down tunnels. go down col
 }
 
 /*
-**traverse linked list queue for comparing current room to 
+**traverse linked list queue for comparing current room to
 **rooms already checked in queue
 */
 
@@ -68,7 +68,7 @@ int     node_already_visited(t_queue *current, t_room *room)
 }
 
 /*
-**this function adds to end of queue 
+**this function adds to end of queue
 ** the current path
 */
 
@@ -125,7 +125,7 @@ char        **assemble_path(t_queue *head, t_swarm *swarm)
 int         current_link_shorter(t_queue *head, t_queue *current, t_room *room)
 {
     t_queue *tmp;
-    
+
     while (head && head->destination != room)
         head = head->next;
     if (!head)
@@ -176,7 +176,7 @@ void		bfs(t_swarm *swarm)
             if (tmp_tunnel->to_room->room_type == 0)
             {
                 swarm->path = assemble_path(head, swarm);
-                print_path(swarm->path);
+                // print_path(swarm->path);
                 return ;
             }
             tmp_tunnel = tmp_tunnel->next;

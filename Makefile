@@ -21,7 +21,8 @@ PRINTF = printf/libftprintf.a\
 SRCS =	main.c\
 		ll_fts_0.c\
 		test_fts.c\
-		bfs.c
+		bfs.c\
+		send_ants.c\
 
 ODIR = ofiles
 

@@ -49,6 +49,8 @@ typedef	struct			s_swarm
 t_room					*room_lstnew(int room_type);
 t_tunnel				*tunnel_lstnew(void);
 void					destroy_colony(t_swarm *swarm);
+void					bfs(t_swarm *swarm);
+void					send_ants(t_swarm *swarm);
 
 /*
 **test functions below. remove in the final version
@@ -56,7 +58,6 @@ void					destroy_colony(t_swarm *swarm);
 
 void					check_inputs(t_swarm *swarm);
 void					open_testfiles(t_swarm *swarm);
-
-void					bfs(t_swarm *swarm);
+void					check_paths(char **swarms);
 
 #endif

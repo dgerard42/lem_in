@@ -51,5 +51,3 @@ void		destroy_colony(t_swarm *swarm)
 		colony_ptr = next_room;
 	}
 }
-
-//
