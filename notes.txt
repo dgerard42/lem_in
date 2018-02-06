@@ -78,6 +78,8 @@ __TASKS TO COMPLETE___________
 >> do rigourous memory leak testing
 >> norm everything (last)
 
+>>don't print the start room
+
 __SEND ANTS PSEUDOCODE___________
 while all ants aren't done
 	increase sent ants if all ants haven't been sent

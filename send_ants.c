@@ -32,25 +32,22 @@ void				send_ants(t_swarm *swarm)
 
 	sent_ants = 0;
 	done_ants = 0;
-	room_index = 0;
 	path_len = path_length(swarm->path);
 	while (done_ants < swarm->ants)
 	{
 		if (sent_ants < swarm->ants)
 			sent_ants++;
-		printed_ants = 0;
-		room_index = (sent_ants == swarm->ants) ? path_len - swarm->ants + done_ants : 0;
-		while (printed_ants < sent_ants - done_ants && room_index < path_len)
+		printed_ants = done_ants;
+		room_index = (path_len - sent_ants > 0) ? (path_len - (path_len - sent_ants)) - 1 : path_len - 1;
+		while (printed_ants < sent_ants && room_index >= 0)
 		{
 			ft_printf("L%d-%s ", printed_ants + 1, swarm->path[room_index]);
 			printed_ants++;
-			room_index++;
+			room_index--;
 		}
 		ft_printf("\n");
-		if (room_index == path_len)
-		{
-			sent_ants--;
+		if (sent_ants - done_ants == path_len || done_ants > path_len)
 			done_ants++;
-		}
 	}
 }
+//the room index needs to start at the highest possible number that will be needed
