@@ -117,12 +117,19 @@ void			scan_colony(t_swarm *swarm)
 	}
 }
 
-int				main(void)
+/*
+**				TAKE NOTE!
+**			main(int argc, char **argv); chaged from main(void);
+**			open_testfiles(&swarm, char argv[1]); changed from open_testfiles(&swarm);
+*/
+
+int				main(int argc, char **argv)
 {
+	(void)argc;
 	t_swarm	swarm;
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	open_testfiles(&swarm); //RM @END
+	open_testfiles(&swarm, argv[1]); //RM @END
 	get_next_line(swarm.fd, &swarm.sight);
 	swarm.ants = ft_atoi(swarm.sight);
 	ft_memdel((void**)&swarm.sight);

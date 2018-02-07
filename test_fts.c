@@ -45,9 +45,9 @@ void			check_inputs(t_swarm *swarm)
 	}
 }
 
-void				open_testfiles(t_swarm *swarm)
+void				open_testfiles(t_swarm *swarm, char *path)
 {
-	swarm->fd = open("maps/map_1.map", O_RDONLY);
+	swarm->fd = open(path, O_RDONLY);
 	//map_5 causes algorithm segfault
 	//map_3 causes segfault in test function
 }
