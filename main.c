@@ -138,6 +138,11 @@ int				main(int argc, char **argv)
 		scan_colony(&swarm);
  		ft_memdel((void**)&swarm.sight);
 	}
+	if (!(handle_errors(&swarm)))
+	{
+		destroy_colony(&swarm);
+		return (0);
+	}
 	bfs(&swarm);
 	ft_printf("\n");
 	send_ants(&swarm);

@@ -12,6 +12,27 @@
 
 #include "lem_in.h"
 
+int				handle_errors(t_swarm *swarm)
+{
+	t_room	*colony_ptr;
+
+	colony_ptr = swarm->colony;
+	if (swarm->colony == NULL)
+		return (0);
+	if (swarm->ants == 0)
+		return (0);
+	while (colony_ptr != NULL && colony_ptr->type != 1)
+		colony_ptr++;
+	if (colony_ptr->type != 1)
+		return(0);
+	colony_ptr = swarm->colony;
+	while (colony_ptr != NULL && colony_ptr->type != 0)
+		colony_ptr++;
+	if (colony_ptr->type != 0)
+		return(0);
+	return (1);
+}
+
 int					path_length(char **rooms)
 {
 	int	room_number;

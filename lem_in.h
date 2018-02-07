@@ -39,7 +39,7 @@ typedef	struct			s_tunnel
 typedef	struct			s_swarm
 {
 	int					ants;
-	int					rooms;			//how many instances of the room struct have been allocated
+	int					rooms;			//how many instances of the room struct have been allocated, RM@END
 	struct	s_room		*colony;		//pointer to the head element
 	char				*sight;
 	char				**path;			//1st lvl = room names in path, 2nd lvl = room names
@@ -51,6 +51,7 @@ t_tunnel				*tunnel_lstnew(void);
 void					destroy_colony(t_swarm *swarm);
 void					bfs(t_swarm *swarm);
 void					send_ants(t_swarm *swarm);
+int						handle_errors(t_swarm *swarm);
 
 /*
 **test functions below. remove in the final version
