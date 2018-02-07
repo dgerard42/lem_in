@@ -80,6 +80,14 @@ __TASKS TO COMPLETE___________
 
 >>don't print the start room
 
+>>error handling
+	>> no rooms
+	>> no ants
+	>> no ##start
+	>> no ##end
+	>> no ##start and no ##end
+	>> no possible solution
+
 __SEND ANTS PSEUDOCODE___________
 while all ants aren't done
 	increase sent ants if all ants haven't been sent

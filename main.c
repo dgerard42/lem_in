@@ -97,12 +97,14 @@ void			scan_colony(t_swarm *swarm)
 	char	**linked_rooms;
 
 	room_type =	2;
+	ft_printf("%s\n", swarm->sight);
 	if (ft_strchr(swarm->sight, '#'))
 	{
 		room_type = (ft_strstr(swarm->sight, "##start")) ? 1 : 2;
 		room_type = (ft_strstr(swarm->sight, "##end")) ? 0 : room_type;
 		ft_memdel((void**)&swarm->sight);
 		get_next_line(swarm->fd, &swarm->sight);
+		ft_printf("%s\n", swarm->sight);
 	}
 	if (!(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
 		memorize_rooms(swarm, room_type);
@@ -130,6 +132,7 @@ int				main(void)
  		ft_memdel((void**)&swarm.sight);
 	}
 	bfs(&swarm);
+	ft_printf("\n");
 	send_ants(&swarm);
 	// check_inputs(&swarm);
 	check_paths(swarm.path);
