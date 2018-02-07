@@ -21,14 +21,14 @@ int				handle_errors(t_swarm *swarm)
 		return (0);
 	if (swarm->ants == 0)
 		return (0);
-	while (colony_ptr != NULL && colony_ptr->type != 1)
+	while (colony_ptr != NULL && colony_ptr->room_type != 1)
 		colony_ptr++;
-	if (colony_ptr->type != 1)
+	if (colony_ptr->room_type != 1)
 		return(0);
 	colony_ptr = swarm->colony;
-	while (colony_ptr != NULL && colony_ptr->type != 0)
+	while (colony_ptr != NULL && colony_ptr->room_type != 0)
 		colony_ptr++;
-	if (colony_ptr->type != 0)
+	if (colony_ptr->room_type != 0)
 		return(0);
 	return (1);
 }
