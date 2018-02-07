@@ -103,18 +103,22 @@ char        **assemble_path(t_queue *head, t_swarm *swarm)
     count = tmp->distance + 2;
     temp = 0;
     path = (char**)malloc(sizeof(char*) * count);
-	path[count] = NULL;
+	//path[count] = NULL;
     while (temp < count - 1)
     {
         path[temp] = ft_strdup(tmp->destination->name);
         if (tmp->destination->room_type == 1)
+        {
+            temp++;
             break ;
+        }
         previous = tmp->origin;
         tmp = head;
         while (tmp->destination != previous)
             tmp = tmp->next;
         temp++;
     }
+    path[temp] = NULL;
     return (path);
 }
 

@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/lem-in",
-            "args": ["maps/map_5.map"],
+            "args": ["maps/map_2.map"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
