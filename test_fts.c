@@ -46,5 +46,5 @@ void			check_inputs(t_swarm *swarm)
 
 void				open_testfiles(t_swarm *swarm)
 {
-	swarm->fd = open("maps/map_1.map", O_RDONLY);
+	swarm->fd = open("maps/map_3.map", O_RDONLY);
 }
