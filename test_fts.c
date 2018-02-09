@@ -45,7 +45,8 @@ void			check_inputs(t_swarm *swarm)
 	}
 }
 
-void				open_testfiles(t_swarm *swarm, char *path)
-{
-	swarm->fd = open(path, O_RDONLY);
-}
+// void				open_testfiles(t_swarm *swarm, char *path)
+// {
+// 	swarm->fd = open(path, O_RDONLY);
+// 	// swarm->fd = 0;
+// }

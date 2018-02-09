@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lem_in.h"
+#include "lem_in.h"
 
 /*
 **distance formula for finding the distance between 2 rooms
 */
 
-int			find_distance(t_room *room_a, t_room *room_b)
+int				find_distance(t_room *room_a, t_room *room_b)
 {
 	int	distance;
 
@@ -31,7 +31,7 @@ int			find_distance(t_room *room_a, t_room *room_b)
 **save that room to the to_room pointer in thw new tunnel node
 **traverse linked list again until you find the first room in the link
 **find the distance between linked rooms, save to length in new tunnel node
-**save the new tunnel node to the end of the tunnel linked list of room it starts in
+**save the new tunnel node to the end of the tunnel linked list of starting r.
 */
 
 void			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
@@ -41,11 +41,13 @@ void			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 
 	new_tunnel = tunnel_lstnew();
 	colony_ptr = swarm->colony;
-	while(colony_ptr != NULL && colony_ptr->next != NULL && ft_strcmp(colony_ptr->name, room_a))
+	while (colony_ptr != NULL && colony_ptr->next != NULL &&
+			ft_strcmp(colony_ptr->name, room_a))
 		colony_ptr = colony_ptr->next;
 	new_tunnel->to_room = colony_ptr;
 	colony_ptr = swarm->colony;
-	while(colony_ptr != NULL && colony_ptr->next != NULL && ft_strcmp(colony_ptr->name, room_b))
+	while (colony_ptr != NULL && colony_ptr->next != NULL &&
+			ft_strcmp(colony_ptr->name, room_b))
 		colony_ptr = colony_ptr->next;
 	if (colony_ptr != NULL)
 	{
@@ -70,24 +72,18 @@ void			memorize_rooms(t_swarm *swarm, int room_type)
 	i = 0;
 	new_room = room_lstnew(room_type);
 	look = swarm->sight;
-	while (look[i] != ' ' && *look != '\0')
+	while (look[i] != ' ' && look[i] != '\0')
 		i++;
 	new_room->name = ft_strnew(i);
 	i = 0;
 	while (*look != ' ' && *look != '\0')
 		new_room->name[i++] = *look++;
-	if (*look != '\0')
-	{
-		look++;
-		new_room->x_coord = ft_atoi(look);
-	}
+	look++;
+	new_room->x_coord = ft_atoi(look);
 	while (*look != '\0' && ft_isdigit(*look))
 		look++;
-	if (*look != '\0')
-	{
-		look++;
-		new_room->y_coord = ft_atoi(look);
-	}
+	look++;
+	new_room->y_coord = ft_atoi(look);
 	new_room->next = swarm->colony;
 	swarm->colony = new_room;
 }
@@ -105,14 +101,14 @@ void			scan_colony(t_swarm *swarm)
 	int		room_type;
 	char	**linked_rooms;
 
-	room_type =	2;
+	room_type = 2;
 	ft_printf("%s\n", swarm->sight);
 	if (ft_strchr(swarm->sight, '#'))
 	{
 		room_type = (ft_strstr(swarm->sight, "##start")) ? 1 : 2;
 		room_type = (ft_strstr(swarm->sight, "##end")) ? 0 : room_type;
 		ft_memdel((void**)&swarm->sight);
-		get_next_line(swarm->fd, &swarm->sight);
+		get_next_line(0, &swarm->sight);
 		ft_printf("%s\n", swarm->sight);
 	}
 	if (!(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
@@ -131,16 +127,16 @@ int				main(void)
 	t_swarm	swarm;
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	open_testfiles(&swarm, "maps/garbagio.map"); //RM @END
-	if (get_next_line(swarm.fd, &swarm.sight) > 0)
+	// open_testfiles(&swarm, "maps/garbagio.map"); //RM @END
+	if (get_next_line(0, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
 		ft_memdel((void**)&swarm.sight);
 	}
-	while (get_next_line(swarm.fd, &swarm.sight) > 0)
+	while (get_next_line(0, &swarm.sight) > 0)
 	{
 		scan_colony(&swarm);
- 		ft_memdel((void**)&swarm.sight);
+		ft_memdel((void**)&swarm.sight);
 	}
 	if (!(handle_errors(&swarm)))
 	{

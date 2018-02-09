@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int				valid_link(char *link)
+int					valid_link(char *link)
 {
 	char *link_ptr;
 
@@ -27,7 +27,7 @@ int				valid_link(char *link)
 	return (1);
 }
 
-int				handle_errors(t_swarm *swarm)
+int					handle_errors(t_swarm *swarm)
 {
 	t_room	*colony_ptr;
 
@@ -39,12 +39,12 @@ int				handle_errors(t_swarm *swarm)
 	while (colony_ptr != NULL && colony_ptr->room_type != 1)
 		colony_ptr = colony_ptr->next;
 	if (colony_ptr == NULL)
-		return(0);
+		return (0);
 	colony_ptr = swarm->colony;
 	while (colony_ptr != NULL && colony_ptr->room_type != 0)
 		colony_ptr = colony_ptr->next;
 	if (colony_ptr == NULL)
-		return(0);
+		return (0);
 	return (1);
 }
 
@@ -55,7 +55,7 @@ int					path_length(char **rooms)
 	room_number = 0;
 	while (rooms[room_number] != '\0')
 		room_number++;
-	return(room_number);
+	return (room_number);
 }
 
 void				send_ants(t_swarm *swarm)
@@ -63,7 +63,7 @@ void				send_ants(t_swarm *swarm)
 	int		sent_ants;
 	int		done_ants;
 	int		printed_ants;
-	int		room_index;
+	int		room_indx;
 	int		path_len;
 
 	sent_ants = 0;
@@ -73,15 +73,15 @@ void				send_ants(t_swarm *swarm)
 	{
 		printed_ants = done_ants;
 		sent_ants = (sent_ants < swarm->ants) ? sent_ants + 1 : sent_ants;
-		room_index = (path_len - sent_ants > 0) ? (path_len - sent_ants) - 1 : 0;
-		while (printed_ants < sent_ants && room_index < path_len)
+		room_indx = (path_len - sent_ants > 0) ? (path_len - sent_ants) - 1 : 0;
+		while (printed_ants < sent_ants && room_indx < path_len)
 		{
-			if (room_index != path_len - 1)
-				ft_printf("L%d-%s ", printed_ants + 1, swarm->path[room_index]);
-			if (room_index == 0)
+			if (room_indx != path_len - 1)
+				ft_printf("L%d-%s ", printed_ants + 1, swarm->path[room_indx]);
+			if (room_indx == 0)
 				done_ants++;
 			printed_ants++;
-			room_index++;
+			room_indx++;
 		}
 		ft_printf("\n");
 	}

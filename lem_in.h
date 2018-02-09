@@ -46,6 +46,15 @@ typedef	struct			s_swarm
 	int					fd;				//REMOVE @END
 }						t_swarm;
 
+typedef struct		s_queue
+{
+	struct s_room	*origin;        //for tracking origin linking node
+	struct s_room	*destination;   //for tracking destination linking node
+	int             distance;       //for counting number of nodes between
+	struct s_queue	*next;          //tracking within queue
+	struct s_queue	*last;
+}					t_queue0;
+
 t_room					*room_lstnew(int room_type);
 t_tunnel				*tunnel_lstnew(void);
 void					destroy_colony(t_swarm *swarm);

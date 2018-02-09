@@ -89,12 +89,12 @@ __TASKS TO COMPLETE___________
 	>> no ##start and no ##end			✓
 	>> no possible solution
 	>> empty file						✓
-	>> no file							✓ (but check again when you change fd
-		to 0)
+	>> no file							✓ (but check again when you change fd to 0)
 	>> nonsense file					✓
-	>> the executable itself as a parameter
+	>> the executable itself as a parameter	✓
 	>> the link sign but with nothing on the other side of the string
 		(doesn't error but runs w/o seg)
+	>> should probably error out when you keyboard smash
 
 >> no file and executable as parameter errors need to be handled when you make
 	the final version that reads the files in the correct way, handling them
