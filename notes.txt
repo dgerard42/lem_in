@@ -56,7 +56,7 @@ find paths
 send ants
 	>> print from the paths array correctly
 destroy colony
-	>> free eveything correctly!
+	>> free everything correctly!
 
 thanks Ian
 >> make sure you do not overlap paths
@@ -75,7 +75,7 @@ __TASKS TO COMPLETE___________
 >> make the ant printing functions
 >> make Sergio make his freeing functions
 >> do rigorous map input testing
->> do rigourous memory leak testing
+>> do rigorous memory leak testing
 >> norm everything (last)
 
 >>don't print the start room
@@ -89,16 +89,20 @@ __TASKS TO COMPLETE___________
 	>> no ##start and no ##end			✓
 	>> no possible solution
 	>> empty file						✓
-	>> no file							✓ (but check again when you)
+	>> no file							✓ (but check again when you change fd
+		to 0)
 	>> nonsense file					✓
 	>> the executable itself as a parameter
-	>> the link sign but with nothing on the other side of the string (doesn't error but runs w/o seg)
+	>> the link sign but with nothing on the other side of the string
+		(doesn't error but runs w/o seg)
 
 >> no file and executable as parameter errors need to be handled when you make
 	the final version that reads the files in the correct way, handling them
 	before would be useless, you'd just have to do them over again
 
 >> no possible solution error must be handled by Sergio in his algorithm
+
+>> be certain that it must never seg fault, even with invalid file input
 
 __SEND ANTS PSEUDOCODE___________
 while all ants aren't done

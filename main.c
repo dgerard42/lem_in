@@ -70,18 +70,24 @@ void			memorize_rooms(t_swarm *swarm, int room_type)
 	i = 0;
 	new_room = room_lstnew(room_type);
 	look = swarm->sight;
-	while (look[i] != ' ')
+	while (look[i] != ' ' && *look != '\0')
 		i++;
 	new_room->name = ft_strnew(i);
 	i = 0;
-	while (*look != ' ')
+	while (*look != ' ' && *look != '\0')
 		new_room->name[i++] = *look++;
-	look++;
-	new_room->x_coord = ft_atoi(look);
-	while (ft_isdigit(*look))
+	if (*look != '\0')
+	{
 		look++;
-	look++;
-	new_room->y_coord = ft_atoi(look);
+		new_room->x_coord = ft_atoi(look);
+	}
+	while (*look != '\0' && ft_isdigit(*look))
+		look++;
+	if (*look != '\0')
+	{
+		look++;
+		new_room->y_coord = ft_atoi(look);
+	}
 	new_room->next = swarm->colony;
 	swarm->colony = new_room;
 }
@@ -120,19 +126,12 @@ void			scan_colony(t_swarm *swarm)
 	}
 }
 
-/*
-**				TAKE NOTE!
-**			main(int argc, char **argv); chaged from main(void);
-**			open_testfiles(&swarm, char argv[1]); changed from open_testfiles(&swarm);
-*/
-
-int				main(int argc, char **argv)
+int				main(void)
 {
-	(void)argc;
 	t_swarm	swarm;
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	open_testfiles(&swarm, argv[1]); //RM @END
+	open_testfiles(&swarm, "maps/garbagio.map"); //RM @END
 	if (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
