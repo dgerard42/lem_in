@@ -12,6 +12,21 @@
 
 #include "lem_in.h"
 
+int				valid_link(char *link)
+{
+	char *link_ptr;
+
+	link_ptr = link;
+	if (*link == '-')
+		return (0);
+	while (*link != '-')
+		link++;
+	link++;
+	if (*link == '\0')
+		return (0);
+	return (1);
+}
+
 int				handle_errors(t_swarm *swarm)
 {
 	t_room	*colony_ptr;
@@ -23,12 +38,12 @@ int				handle_errors(t_swarm *swarm)
 		return (0);
 	while (colony_ptr != NULL && colony_ptr->room_type != 1)
 		colony_ptr = colony_ptr->next;
-	if (colony_ptr->room_type != 1)
+	if (colony_ptr == NULL)
 		return(0);
 	colony_ptr = swarm->colony;
 	while (colony_ptr != NULL && colony_ptr->room_type != 0)
 		colony_ptr = colony_ptr->next;
-	if (colony_ptr->room_type != 0)
+	if (colony_ptr == NULL)
 		return(0);
 	return (1);
 }
@@ -40,7 +55,6 @@ int					path_length(char **rooms)
 	room_number = 0;
 	while (rooms[room_number] != '\0')
 		room_number++;
-	ft_printf("PATH LENGTH: %d\n", room_number);
 	return(room_number);
 }
 

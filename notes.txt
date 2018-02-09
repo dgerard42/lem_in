@@ -81,12 +81,24 @@ __TASKS TO COMPLETE___________
 >>don't print the start room
 
 >>error handling
-	>> no rooms
-	>> no ants
-	>> no ##start
-	>> no ##end
-	>> no ##start and no ##end
+	>> no rooms							✓
+	>> linking rooms that do not exist	(doesn't error out but runs w/o seg)
+	>> no ants							✓
+	>> no ##start						✓
+	>> no ##end							✓
+	>> no ##start and no ##end			✓
 	>> no possible solution
+	>> empty file						✓
+	>> no file							✓ (but check again when you)
+	>> nonsense file					✓
+	>> the executable itself as a parameter
+	>> the link sign but with nothing on the other side of the string (doesn't error but runs w/o seg)
+
+>> no file and executable as parameter errors need to be handled when you make
+	the final version that reads the files in the correct way, handling them
+	before would be useless, you'd just have to do them over again
+
+>> no possible solution error must be handled by Sergio in his algorithm
 
 __SEND ANTS PSEUDOCODE___________
 while all ants aren't done

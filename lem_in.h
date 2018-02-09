@@ -52,6 +52,7 @@ void					destroy_colony(t_swarm *swarm);
 void					bfs(t_swarm *swarm);
 void					send_ants(t_swarm *swarm);
 int						handle_errors(t_swarm *swarm);
+int						valid_link(char *link);
 
 /*
 **test functions below. remove in the final version

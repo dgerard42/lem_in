@@ -6,7 +6,7 @@
 #    By: dgerard <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 17:24:50 by dgerard           #+#    #+#              #
-#    Updated: 2018/01/19 22:41:34 by dgerard          ###   ########.fr        #
+#    Updated: 2018/02/07 10:24:43 by dgerard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBFT = libft/libft.a\
 PRINTF = printf/libftprintf.a\
 
 SRCS =	main.c\
-		ll_fts_0.c\
+		ll_fts.c\
 		test_fts.c\
 		bfs.c\
 		send_ants.c\

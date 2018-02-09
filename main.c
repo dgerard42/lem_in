@@ -41,15 +41,18 @@ void			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 
 	new_tunnel = tunnel_lstnew();
 	colony_ptr = swarm->colony;
-	while(ft_strcmp(colony_ptr->name, room_a))
+	while(colony_ptr != NULL && colony_ptr->next != NULL && ft_strcmp(colony_ptr->name, room_a))
 		colony_ptr = colony_ptr->next;
 	new_tunnel->to_room = colony_ptr;
 	colony_ptr = swarm->colony;
-	while(ft_strcmp(colony_ptr->name, room_b))
+	while(colony_ptr != NULL && colony_ptr->next != NULL && ft_strcmp(colony_ptr->name, room_b))
 		colony_ptr = colony_ptr->next;
-	new_tunnel->length = find_distance(colony_ptr, new_tunnel->to_room);
-	new_tunnel->next = colony_ptr->tunnels;
-	colony_ptr->tunnels = new_tunnel;
+	if (colony_ptr != NULL)
+	{
+		new_tunnel->length = find_distance(colony_ptr, new_tunnel->to_room);
+		new_tunnel->next = colony_ptr->tunnels;
+		colony_ptr->tunnels = new_tunnel;
+	}
 }
 
 /*
@@ -108,7 +111,7 @@ void			scan_colony(t_swarm *swarm)
 	}
 	if (!(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
 		memorize_rooms(swarm, room_type);
-	if (ft_strchr(swarm->sight, '-'))
+	if (ft_strchr(swarm->sight, '-') && valid_link(swarm->sight))
 	{
 		linked_rooms = ft_strsplit(swarm->sight, '-');
 		learn_connection(swarm, linked_rooms[0], linked_rooms[1]);
@@ -130,9 +133,11 @@ int				main(int argc, char **argv)
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
 	open_testfiles(&swarm, argv[1]); //RM @END
-	get_next_line(swarm.fd, &swarm.sight);
-	swarm.ants = ft_atoi(swarm.sight);
-	ft_memdel((void**)&swarm.sight);
+	if (get_next_line(swarm.fd, &swarm.sight) > 0)
+	{
+		swarm.ants = ft_atoi(swarm.sight);
+		ft_memdel((void**)&swarm.sight);
+	}
 	while (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		scan_colony(&swarm);
@@ -141,6 +146,7 @@ int				main(int argc, char **argv)
 	if (!(handle_errors(&swarm)))
 	{
 		destroy_colony(&swarm);
+		ft_printf("ERROR\n");
 		return (0);
 	}
 	bfs(&swarm);

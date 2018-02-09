@@ -1,0 +1,23 @@
+12
+serbia 23 3
+croatia 16 7
+#start
+zimbabwe 16 7
+colombia 16 5
+argentina 9 3
+uruguay 1 5
+##end
+moldova 4 8
+##start
+estonia 9 5
+moldova-zimbabwe
+zimbabwe-colombia
+colombia-argentina
+argentina-serbia
+serbia-moldova
+uruguay-estonia
+moldova-croatia
+lithuania-norway
+zimbabwe-norway
+#end
+estonia-colombia
