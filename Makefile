@@ -14,15 +14,16 @@ NAME = lem-in
 
 FLAGS = -Wall -Werror -Wextra -g
 
-LIBFT = libft/libft.a\
+LIBFT = libft/libft.a
 
-PRINTF = printf/libftprintf.a\
+PRINTF = printf/libftprintf.a
 
 SRCS =	main.c\
 		ll_fts.c\
 		test_fts.c\
 		bfs.c\
-		send_ants.c\
+		bfs_cont.c\
+		send_ants.c
 
 ODIR = ofiles
 

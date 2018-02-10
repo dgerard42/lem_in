@@ -12,6 +12,11 @@
 
 #include "lem_in.h"
 
+void				no_path(void)
+{
+	ft_printf("Error no possible path\n");
+}
+
 int					valid_link(char *link)
 {
 	char *link_ptr;

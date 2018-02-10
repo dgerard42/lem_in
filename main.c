@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <fcntl.h>
 
 /*
 **distance formula for finding the distance between 2 rooms
@@ -108,7 +109,7 @@ void			scan_colony(t_swarm *swarm)
 		room_type = (ft_strstr(swarm->sight, "##start")) ? 1 : 2;
 		room_type = (ft_strstr(swarm->sight, "##end")) ? 0 : room_type;
 		ft_memdel((void**)&swarm->sight);
-		get_next_line(0, &swarm->sight);
+		get_next_line(swarm->fd, &swarm->sight);
 		ft_printf("%s\n", swarm->sight);
 	}
 	if (!(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
@@ -127,13 +128,13 @@ int				main(void)
 	t_swarm	swarm;
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	// open_testfiles(&swarm, "maps/garbagio.map"); //RM @END
-	if (get_next_line(0, &swarm.sight) > 0)
+	//swarm.fd = open("./maps/map_1.map", O_RDONLY); //RM @END
+	if (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
 		ft_memdel((void**)&swarm.sight);
 	}
-	while (get_next_line(0, &swarm.sight) > 0)
+	while (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		scan_colony(&swarm);
 		ft_memdel((void**)&swarm.sight);
@@ -146,8 +147,7 @@ int				main(void)
 	}
 	bfs(&swarm);
 	ft_printf("\n");
-	send_ants(&swarm);
-	// check_inputs(&swarm);
-	check_paths(swarm.path);
+	(!swarm.path ? 0 : send_ants(&swarm));
+	(!swarm.path ? no_path() : check_paths(swarm.path));
 	destroy_colony(&swarm);
 }

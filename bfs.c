@@ -12,84 +12,14 @@
 
 #include "lem_in.h"
 
-/*
-**t_queue      *new_queue(t_room *start, t_room *end)
-**makes new item for queue
-**start room and end room
-*/
-
-t_queue		*new_queue(t_room *start, t_room *end, int dist)
+t_queue		*get_last_ptr(t_queue *head)
 {
-	t_queue	*temp;
-
-	temp = (t_queue*)malloc(sizeof(t_queue));
-	ft_bzero(temp, sizeof(t_queue));
-	temp->distance = dist;
-	temp->origin = start;
-	temp->destination = end;
-	return (temp);
+	while (head->next != NULL)
+		head = head->next;
+	return (head);
 }
 
-/*
-**t_queue     *init_queue(t_swarm *swarm)
-**finds the starting room in linked list for initial queue
-*/
-
-t_queue		*init_queue(t_swarm *swarm) //here dont go down tunnels. go down colon ptr from swarm.
-{
-	t_queue	*temp;
-	t_room	*tmp_room;
-
-	tmp_room = swarm->colony;
-	while (tmp_room != NULL)
-	{
-		if (tmp_room->room_type == 1)
-			break ;
-		tmp_room = tmp_room->next;
-	}
-	temp = new_queue(NULL , tmp_room, 0);
-	temp->destination->visited = true;
-	return (temp);
-}
-
-/*
-**traverse linked list queue for comparing current room to
-**rooms already checked in queue
-*/
-
-int			node_already_visited(t_queue *current, t_room *room)
-{
-	while (current != NULL)
-	{
-		if (current->destination != NULL && room->visited == true)
-			return (1);
-		current = current->next;
-	}
-	return (0);
-}
-
-/*
-**this function adds to end of queue
-** the current path
-*/
-
-void		add_to_queue(t_queue *current, t_room *rm)
-{
-	int		dist;
-	t_queue	*tmp;
-	t_queue	*last;
-
-	dist = current->distance;
-	rm->visited = true;
-	last = current;
-	while (last->next != NULL)
-		last = last->next;
-	tmp = new_queue(current->destination, rm, (dist + 1));
-	last->next = tmp;
-	tmp->last = last;
-}
-
-char		**assemble_path(t_queue *head, t_swarm *swarm)
+char		**assemble_path(t_queue *head)
 {
 	t_queue	*tmp;
 	int		count;
@@ -97,22 +27,16 @@ char		**assemble_path(t_queue *head, t_swarm *swarm)
 	char	**path;
 	t_room	*previous;
 
-	(void)swarm;
-	tmp = head;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
+	tmp = get_last_ptr(head);
 	count = tmp->distance + 2;
 	temp = 0;
 	path = (char**)malloc(sizeof(char*) * count);
-	// path[count] = NULL;
 	while (temp < count - 1)
 	{
 		path[temp] = ft_strdup(tmp->destination->name);
+		temp = ((tmp->destination->room_type == 1) ? (temp + 1) : temp);
 		if (tmp->destination->room_type == 1)
-		{
-			temp++;
 			break ;
-		}
 		previous = tmp->origin;
 		tmp = head;
 		while (tmp->destination != previous)
@@ -136,7 +60,8 @@ int			current_link_shorter(t_queue *head, t_queue *current, t_room *room)
 		head = head->next;
 	if (!head)
 		return (1);
-	if ((head->destination == room) && (current->distance + 1  <  head->distance))
+	if ((head->destination == room) &&
+	((current->distance + 1) < head->distance))
 	{
 		tmp = head;
 		tmp->last->next = tmp->next;
@@ -169,27 +94,25 @@ void		bfs(t_swarm *swarm)
 	t_queue		*head;
 	t_queue		*current;
 	t_tunnel	*tmp_tunnel;
-	t_room		*tmp_room;
 
 	head = init_queue(swarm);
-	tmp_room = head->destination;
 	current = head;
-	while (current != NULL)
+	while (current)
 	{
-		tmp_tunnel = tmp_room->tunnels;
-		while (tmp_tunnel != NULL)
+		tmp_tunnel = current->destination->tunnels;
+		while (tmp_tunnel)
 		{
-			if (current_link_shorter(head, current, tmp_tunnel->to_room))//tmp_tunnel->to_room->visited == false)
-				add_to_queue(current, tmp_tunnel->to_room);     //adding room to queue
+			if (current_link_shorter(head, current, tmp_tunnel->to_room))
+				add_to_queue(current, tmp_tunnel->to_room);
 			if (tmp_tunnel->to_room->room_type == 0)
 			{
-				swarm->path = assemble_path(head, swarm);
-				// print_path(swarm->path);
+				swarm->path = assemble_path(head);
+				free_list(head);
 				return ;
 			}
 			tmp_tunnel = tmp_tunnel->next;
 		}
-		current = current->next;
-		tmp_room = current->destination;
+		current = (current->next ? current->next : NULL);
 	}
+	free_list(head);
 }
