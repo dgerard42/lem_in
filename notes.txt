@@ -110,3 +110,25 @@ while all ants aren't done
 	set the number of ants to be printed (sent ants - done ants)
 	set the room as equal to the
 	while the ants for this cycle aren't done printing
+
+__NSAMPRE TEST RESULTS__________
+>> underflow - throws error
+	>> invalid map, the underflow number is not an int
+>> comments - segfaults
+	>> fixed
+>> testbug - error throw
+	>>fixed
+>> pentagram - error throw
+	>>fixed
+>> map42 - error throw
+	>>fixed
+>> triforce - error throw
+	>>fixed
+>> multiple ways map
+	>>fixed
+>> europe_utf - inf loop
+	>> hontestly, fuck handling utf
+	>> fixed, because it wasn't the utf that was the problem
+>> europe
+	>> there is only one ant, it fucks up send_ants
+	>> fixed

@@ -14,7 +14,7 @@
 
 void				no_path(void)
 {
-	ft_printf("Error no possible path\n");
+	ft_printf("ERROR, no possible path\n");
 }
 
 int					valid_link(char *link)
@@ -63,6 +63,18 @@ int					path_length(char **rooms)
 	return (room_number);
 }
 
+void				lone_ant(char **path)
+{
+	int		room;
+
+	room = path_length(path) - 2;
+	while (room >= 0)
+	{
+		ft_printf("L%d-%s\n", 1, path[room]);
+		room--;
+	}
+}
+
 void				send_ants(t_swarm *swarm)
 {
 	int		sent_ants;
@@ -81,7 +93,7 @@ void				send_ants(t_swarm *swarm)
 		room_indx = (path_len - sent_ants > 0) ? (path_len - sent_ants) - 1 : 0;
 		while (printed_ants < sent_ants && room_indx < path_len)
 		{
-			if (room_indx != path_len - 1)
+			// if (room_indx != path_len - 1)
 				ft_printf("L%d-%s ", printed_ants + 1, swarm->path[room_indx]);
 			if (room_indx == 0)
 				done_ants++;

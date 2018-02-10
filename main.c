@@ -103,17 +103,23 @@ void			scan_colony(t_swarm *swarm)
 
 	room_type = 2;
 	ft_printf("%s\n", swarm->sight);
-	if (ft_strchr(swarm->sight, '#'))
+	if (ft_strchr(swarm->sight, '#') && !(ft_strstr(swarm->sight, "##start")) && !(ft_strstr(swarm->sight, "##end")))
+	{
+		ft_memdel((void**)&swarm->sight);
+		if (get_next_line(swarm->fd, &swarm->sight) > 0)
+			ft_printf("%s\n", swarm->sight);
+	}
+	if (swarm->sight != NULL && (ft_strstr(swarm->sight, "##start") || (ft_strstr(swarm->sight, "##end"))))
 	{
 		room_type = (ft_strstr(swarm->sight, "##start")) ? 1 : 2;
 		room_type = (ft_strstr(swarm->sight, "##end")) ? 0 : room_type;
 		ft_memdel((void**)&swarm->sight);
-		get_next_line(swarm->fd, &swarm->sight);
-		ft_printf("%s\n", swarm->sight);
+		if (get_next_line(swarm->fd, &swarm->sight) > 0)
+			ft_printf("%s\n", swarm->sight);
 	}
-	if (!(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
+	if (swarm->sight != NULL && !(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
 		memorize_rooms(swarm, room_type);
-	if (ft_strchr(swarm->sight, '-') && valid_link(swarm->sight))
+	if (swarm->sight != NULL && ft_strchr(swarm->sight, '-') && valid_link(swarm->sight))
 	{
 		linked_rooms = ft_strsplit(swarm->sight, '-');
 		learn_connection(swarm, linked_rooms[0], linked_rooms[1]);
@@ -127,10 +133,11 @@ int				main(void)
 	t_swarm	swarm;
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	//swarm.fd = open("./our_maps/map_1.map", O_RDONLY); //RM @END
+	// swarm.fd = open("our_maps/map_3.map", O_RDONLY);
 	if (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
+		ft_printf("%s\n", swarm.sight);
 		ft_memdel((void**)&swarm.sight);
 	}
 	while (get_next_line(swarm.fd, &swarm.sight) > 0)
@@ -146,7 +153,8 @@ int				main(void)
 	}
 	bfs(&swarm);
 	ft_printf("\n");
-	(!swarm.path ? 0 : send_ants(&swarm));
-	(!swarm.path ? no_path() : check_paths(swarm.path));
+	(!swarm.path ? no_path() : 0);
+	((swarm.ants == 1) ? lone_ant(swarm.path) : send_ants(&swarm));
+	// check_paths(swarm.path);
 	destroy_colony(&swarm);
 }
