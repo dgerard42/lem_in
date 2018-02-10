@@ -17,6 +17,7 @@
 # include "printf/ft_printf.h"
 # include <math.h>
 # include <stdbool.h>
+#include <fcntl.h>
 
 /*
 **room type = 1 = start, 0 = end, 2 = middle
@@ -87,7 +88,6 @@ void					free_list(t_queue *head);
 t_queue					*new_queue(t_room *start, t_room *end, int dist);
 t_queue					*init_queue(t_swarm *swarm);
 void					add_to_queue(t_queue *current, t_room *rm);
-
 
 /*
 **test functions below. remove in the final version

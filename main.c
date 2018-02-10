@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <fcntl.h>
 
 /*
 **distance formula for finding the distance between 2 rooms
@@ -128,7 +127,7 @@ int				main(void)
 	t_swarm	swarm;
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	//swarm.fd = open("./maps/map_1.map", O_RDONLY); //RM @END
+	//swarm.fd = open("./our_maps/map_1.map", O_RDONLY); //RM @END
 	if (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
