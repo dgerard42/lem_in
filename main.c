@@ -34,7 +34,7 @@ int				find_distance(t_room *room_a, t_room *room_b)
 **save the new tunnel node to the end of the tunnel linked list of starting r.
 */
 
-void			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
+int			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 {
 	t_tunnel	*new_tunnel;
 	t_room		*colony_ptr;
@@ -63,7 +63,7 @@ void			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 **add the pointer to the new node to the end of the list in the main struct
 */
 
-void			memorize_rooms(t_swarm *swarm, int room_type)
+int			memorize_rooms(t_swarm *swarm, int room_type)
 {
 	int		i;
 	t_room	*new_room;
@@ -133,7 +133,7 @@ int				main(void)
 	t_swarm	swarm;
 
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	// swarm.fd = open("our_maps/map_3.map", O_RDONLY);
+	swarm.fd = open("maps/bad_rooms", O_RDONLY);
 	if (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
@@ -153,8 +153,10 @@ int				main(void)
 	}
 	bfs(&swarm);
 	ft_printf("\n");
-	(!swarm.path ? no_path() : 0);
-	((swarm.ants == 1) ? lone_ant(swarm.path) : send_ants(&swarm));
+	if (swarm.path)
+		((swarm.ants == 1) ? lone_ant(swarm.path) : send_ants(&swarm));
+	else
+		ft_printf("ERROR, no possible path\n");
 	// check_paths(swarm.path);
 	destroy_colony(&swarm);
 }

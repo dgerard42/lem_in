@@ -132,3 +132,13 @@ __NSAMPRE TEST RESULTS__________
 >> europe
 	>> there is only one ant, it fucks up send_ants
 	>> fixed
+>> nopath - errors, then segs
+	>> fixed
+>> bad_rooms - delivers result even with invalid format
+>> whitespaces - delivers result even with invalid format
+>> illegalname1 - delivers result even with invalid format
+>> spaceroom
+>> spaceroom2
+>> test2commentary
+>> simple2
+>> test1
