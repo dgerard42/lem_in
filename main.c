@@ -34,7 +34,7 @@ int				find_distance(t_room *room_a, t_room *room_b)
 **save the new tunnel node to the end of the tunnel linked list of starting r.
 */
 
-int			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
+int 			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 {
 	t_tunnel	*new_tunnel;
 	t_room		*colony_ptr;
@@ -55,6 +55,7 @@ int			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 		new_tunnel->next = colony_ptr->tunnels;
 		colony_ptr->tunnels = new_tunnel;
 	}
+	return (1);
 }
 
 /*
@@ -63,7 +64,7 @@ int			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 **add the pointer to the new node to the end of the list in the main struct
 */
 
-int			memorize_rooms(t_swarm *swarm, int room_type)
+int				memorize_rooms(t_swarm *swarm, int room_type)
 {
 	int		i;
 	t_room	*new_room;
@@ -72,20 +73,33 @@ int			memorize_rooms(t_swarm *swarm, int room_type)
 	i = 0;
 	new_room = room_lstnew(room_type);
 	look = swarm->sight;
-	while (look[i] != ' ' && look[i] != '\0')
+	while (look[i] != ' ' && look[i] != '\0' && look[i] != 'L')
 		i++;
+	if (look[i] != ' ')
+		return (0);
 	new_room->name = ft_strnew(i);
 	i = 0;
 	while (*look != ' ' && *look != '\0')
 		new_room->name[i++] = *look++;
 	look++;
+	if (!(ft_isdigit(*look)))
+		return (0);
 	new_room->x_coord = ft_atoi(look);
 	while (*look != '\0' && ft_isdigit(*look))
 		look++;
+	if (*look != ' ')
+		return (0);
 	look++;
+	if (!(ft_isdigit(*look)))
+		return (0);
 	new_room->y_coord = ft_atoi(look);
+	while (*look != '\0' && ft_isdigit(*look))
+		look++;
+	if (look[i] != '\0')
+		return (0);
 	new_room->next = swarm->colony;
 	swarm->colony = new_room;
+	return (1);
 }
 
 /*
@@ -96,11 +110,13 @@ int			memorize_rooms(t_swarm *swarm, int room_type)
 **skip lines with comments or commands
 */
 
-void			scan_colony(t_swarm *swarm)
+int			scan_colony(t_swarm *swarm)
 {
 	int		room_type;
 	char	**linked_rooms;
+	int		error;
 
+	error = 1;
 	room_type = 2;
 	ft_printf("%s\n", swarm->sight);
 	if (ft_strchr(swarm->sight, '#') && !(ft_strstr(swarm->sight, "##start")) && !(ft_strstr(swarm->sight, "##end")))
@@ -118,34 +134,43 @@ void			scan_colony(t_swarm *swarm)
 			ft_printf("%s\n", swarm->sight);
 	}
 	if (swarm->sight != NULL && !(ft_strchr(swarm->sight, '#')) && !(ft_strchr(swarm->sight, '-')))
-		memorize_rooms(swarm, room_type);
+		if (!(memorize_rooms(swarm, room_type)))
+			return (0);
 	if (swarm->sight != NULL && ft_strchr(swarm->sight, '-') && valid_link(swarm->sight))
 	{
 		linked_rooms = ft_strsplit(swarm->sight, '-');
-		learn_connection(swarm, linked_rooms[0], linked_rooms[1]);
-		learn_connection(swarm, linked_rooms[1], linked_rooms[0]);
+		if (ft_strchr(linked_rooms[0], ' ') || ft_strchr(linked_rooms[1], ' '))
+			return (0);
+		error = learn_connection(swarm, linked_rooms[0], linked_rooms[1]);
+		if (error != 0)
+			error = learn_connection(swarm, linked_rooms[1], linked_rooms[0]);
 		ft_2dfreearray((void**)linked_rooms, 2);
+		if (error == 0)
+			return (0);
 	}
+	return (1);
 }
 
 int				main(void)
 {
 	t_swarm	swarm;
+	int		error;
 
+	error = 1;
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	swarm.fd = open("maps/bad_rooms", O_RDONLY);
+	swarm.fd = open("maps/space_room", O_RDONLY);
 	if (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
 		ft_printf("%s\n", swarm.sight);
 		ft_memdel((void**)&swarm.sight);
 	}
-	while (get_next_line(swarm.fd, &swarm.sight) > 0)
+	while (get_next_line(swarm.fd, &swarm.sight) > 0 && error == 1)
 	{
-		scan_colony(&swarm);
+		error = scan_colony(&swarm);
 		ft_memdel((void**)&swarm.sight);
 	}
-	if (!(handle_errors(&swarm)))
+	if (!(handle_errors(&swarm)) || error == 0)
 	{
 		destroy_colony(&swarm);
 		ft_printf("ERROR\n");
@@ -157,6 +182,6 @@ int				main(void)
 		((swarm.ants == 1) ? lone_ant(swarm.path) : send_ants(&swarm));
 	else
 		ft_printf("ERROR, no possible path\n");
-	// check_paths(swarm.path);
+	check_paths(swarm.path);
 	destroy_colony(&swarm);
 }
