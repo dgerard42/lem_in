@@ -142,6 +142,21 @@ __NSAMPRE TEST RESULTS__________
 >> ✓ test2commentary - ""
 >> ✓ simple2 - ""
 >> test1 - ""
->> illegalname
+>> ✓ illegalname
 >> space_room
 >> space_room_2
+___round 2___________________
+>> input1 ✓
+>> map14 ✓
+>> in0 ✓
+>> map42 ✓
+>> input0 ✓
+>> maptest ✓
+>> Chloe ✓
+>> multiplewaysmap ✓
+>> europe ✓
+>> 42 ✓
+>> the last map ✓
+___round 3___________________
+>> underflow ✓
+>> test1

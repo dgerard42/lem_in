@@ -35,20 +35,32 @@ int					valid_link(char *link)
 int					handle_errors(t_swarm *swarm)
 {
 	t_room	*colony_ptr;
+	int		starts;
+	int		ends;
 
-	colony_ptr = swarm->colony;
 	if (swarm->colony == NULL)
-		return (0);
+		return (0);	
+	colony_ptr = swarm->colony;
+	starts = (colony_ptr->room_type == 1) ? 1 : 0;
+	ends = (colony_ptr->room_type == 0) ? 1 : 0;
 	if (swarm->ants == 0)
 		return (0);
 	while (colony_ptr != NULL && colony_ptr->room_type != 1)
+	{
 		colony_ptr = colony_ptr->next;
-	if (colony_ptr == NULL)
+		if (colony_ptr != NULL && colony_ptr->room_type == 1)
+			starts++;
+	}
+	if (colony_ptr == NULL || starts != 1)
 		return (0);
 	colony_ptr = swarm->colony;
 	while (colony_ptr != NULL && colony_ptr->room_type != 0)
+	{
 		colony_ptr = colony_ptr->next;
-	if (colony_ptr == NULL)
+		if (colony_ptr != NULL && colony_ptr->room_type == 0)
+			ends++;
+	}
+	if (colony_ptr == NULL || ends != 1)
 		return (0);
 	return (1);
 }

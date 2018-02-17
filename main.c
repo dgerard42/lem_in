@@ -73,7 +73,7 @@ int				memorize_rooms(t_swarm *swarm, int room_type)
 	i = 0;
 	new_room = room_lstnew(room_type);
 	look = swarm->sight;
-	while (look[i] != ' ' && look[i] != '\0' && look[i] != 'L')
+	while (look[i] != ' ' && look[i] != '\0' && !(look[i] == 'L' && i == 0))
 		i++;
 	if (look[i] != ' ')
 		return (0);
@@ -95,7 +95,7 @@ int				memorize_rooms(t_swarm *swarm, int room_type)
 	new_room->y_coord = ft_atoi(look);
 	while (*look != '\0' && ft_isdigit(*look))
 		look++;
-	if (look[i] != '\0')
+	if (*look != '\0')
 		return (0);
 	new_room->next = swarm->colony;
 	swarm->colony = new_room;
@@ -158,7 +158,7 @@ int				main(void)
 
 	error = 1;
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	swarm.fd = open("maps/space_room", O_RDONLY);
+	swarm.fd = open("maps/test1", O_RDONLY);
 	if (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
@@ -182,6 +182,6 @@ int				main(void)
 		((swarm.ants == 1) ? lone_ant(swarm.path) : send_ants(&swarm));
 	else
 		ft_printf("ERROR, no possible path\n");
-	check_paths(swarm.path);
+	// check_paths(swarm.path);
 	destroy_colony(&swarm);
 }
