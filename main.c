@@ -158,7 +158,7 @@ int				main(void)
 
 	error = 1;
 	ft_bzero((void *)&swarm, sizeof(struct s_swarm));
-	swarm.fd = open("maps/test1", O_RDONLY);
+	// swarm.fd = open("maps/test1", O_RDONLY);
 	if (get_next_line(swarm.fd, &swarm.sight) > 0)
 	{
 		swarm.ants = ft_atoi(swarm.sight);
@@ -183,5 +183,6 @@ int				main(void)
 	else
 		ft_printf("ERROR, no possible path\n");
 	// check_paths(swarm.path);
+	// check_inputs(&swarm);
 	destroy_colony(&swarm);
 }

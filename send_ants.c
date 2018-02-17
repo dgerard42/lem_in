@@ -12,11 +12,6 @@
 
 #include "lem_in.h"
 
-// void				no_path(void)
-// {
-// 	ft_printf("ERROR, no possible path\n");
-// }
-//
 int					valid_link(char *link)
 {
 	char *link_ptr;
@@ -39,28 +34,28 @@ int					handle_errors(t_swarm *swarm)
 	int		ends;
 
 	if (swarm->colony == NULL)
-		return (0);	
+		return (0);
 	colony_ptr = swarm->colony;
 	starts = (colony_ptr->room_type == 1) ? 1 : 0;
 	ends = (colony_ptr->room_type == 0) ? 1 : 0;
 	if (swarm->ants == 0)
 		return (0);
-	while (colony_ptr != NULL && colony_ptr->room_type != 1)
+	while (colony_ptr != NULL )
 	{
 		colony_ptr = colony_ptr->next;
 		if (colony_ptr != NULL && colony_ptr->room_type == 1)
 			starts++;
 	}
-	if (colony_ptr == NULL || starts != 1)
+	if (starts != 1)
 		return (0);
 	colony_ptr = swarm->colony;
-	while (colony_ptr != NULL && colony_ptr->room_type != 0)
+	while (colony_ptr != NULL )
 	{
 		colony_ptr = colony_ptr->next;
 		if (colony_ptr != NULL && colony_ptr->room_type == 0)
 			ends++;
 	}
-	if (colony_ptr == NULL || ends != 1)
+	if (ends != 1)
 		return (0);
 	return (1);
 }
@@ -105,8 +100,7 @@ void				send_ants(t_swarm *swarm)
 		room_indx = (path_len - sent_ants > 0) ? (path_len - sent_ants) - 1 : 0;
 		while (printed_ants < sent_ants && room_indx < path_len)
 		{
-			// if (room_indx != path_len - 1)
-				ft_printf("L%d-%s ", printed_ants + 1, swarm->path[room_indx]);
+			ft_printf("L%d-%s ", printed_ants + 1, swarm->path[room_indx]);
 			if (room_indx == 0)
 				done_ants++;
 			printed_ants++;
