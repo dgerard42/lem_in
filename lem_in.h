@@ -76,19 +76,21 @@ typedef struct		s_queue
 	struct s_queue	*last;
 }					t_queue;
 
-t_room					*room_lstnew(int room_type);
-t_tunnel				*tunnel_lstnew(void);
-void					destroy_colony(t_swarm *swarm);
-void					bfs(t_swarm *swarm);
-void					send_ants(t_swarm *swarm);
-int						handle_errors(t_swarm *swarm);
+t_room				*room_lstnew(int room_type);
+t_tunnel			*tunnel_lstnew(void);
+void				destroy_colony(t_swarm *swarm);
+void				bfs(t_swarm *swarm);
+void				send_ants(t_swarm *swarm);
+int					handle_errors(t_swarm *swarm);
 // int						valid_link(char *link);
-void					no_path(void);
-void					free_list(t_queue *head);
-t_queue					*new_queue(t_room *start, t_room *end, int dist);
-t_queue					*init_queue(t_swarm *swarm);
-void					add_to_queue(t_queue *current, t_room *rm);
-void					lone_ant(char **path);
+void				no_path(void);
+void				free_list(t_queue *head);
+t_queue				*new_queue(t_room *start, t_room *end, int dist);
+t_queue				*init_queue(t_swarm *swarm);
+void				add_to_queue(t_queue *current, t_room *rm);
+void				lone_ant(char **path);
+int					memorize_rooms(t_swarm *swarm, int room_type);
+int					learn_connection(t_swarm *swarm, char *room_a, char *room_b);
 
 /*
 **test functions below. remove in the final version

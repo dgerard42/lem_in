@@ -23,7 +23,8 @@ SRCS =	main.c\
 		test_fts.c\
 		bfs.c\
 		bfs_cont.c\
-		send_ants.c
+		send_ants.c\
+		learn_colony.c\
 
 ODIR = ofiles
 
