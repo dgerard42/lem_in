@@ -12,20 +12,20 @@
 
 #include "lem_in.h"
 
-int					valid_link(char *link)
-{
-	char *link_ptr;
-
-	link_ptr = link;
-	if (*link == '-')
-		return (0);
-	while (*link != '-')
-		link++;
-	link++;
-	if (*link == '\0')
-		return (0);
-	return (1);
-}
+// int					valid_link(char *link)
+// {
+// 	char *link_ptr;
+//
+// 	link_ptr = link;
+// 	if (*link == '-')
+// 		return (0);
+// 	while (*link != '-')
+// 		link++;
+// 	link++;
+// 	if (*link == '\0')
+// 		return (0);
+// 	return (1);
+// }
 
 int					handle_errors(t_swarm *swarm)
 {
