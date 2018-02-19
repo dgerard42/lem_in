@@ -25,6 +25,7 @@ SRCS =	main.c\
 		bfs_cont.c\
 		send_ants.c\
 		learn_colony.c\
+		kane_alloc_wrap.c\
 
 ODIR = ofiles
 

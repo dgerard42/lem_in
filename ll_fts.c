@@ -31,6 +31,19 @@ t_tunnel	*tunnel_lstnew(void)
 	return (new_tunnel);
 }
 
+void				ft_2dfreestring(char **string)
+{
+	int	i;
+
+	i = 0;
+	while (string[i] != '\0')
+	{
+		ft_strdel(&string[i]);
+		i++;
+	}
+	free(string);
+}
+
 void		destroy_colony(t_swarm *swarm)
 {
 	t_room		*colony_ptr;
@@ -38,6 +51,8 @@ void		destroy_colony(t_swarm *swarm)
 	t_tunnel	*next_tunnel;
 
 	colony_ptr = swarm->colony;
+	if (swarm->path != NULL)
+		ft_2dfreestring(swarm->path);
 	while (colony_ptr != NULL)
 	{
 		next_room = colony_ptr->next;
@@ -47,6 +62,7 @@ void		destroy_colony(t_swarm *swarm)
 			free(colony_ptr->tunnels);
 			colony_ptr->tunnels = next_tunnel;
 		}
+		ft_strdel(&colony_ptr->name);
 		free(colony_ptr);
 		colony_ptr = next_room;
 	}

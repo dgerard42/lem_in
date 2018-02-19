@@ -20,7 +20,7 @@
 **skip lines with comments or commands
 */
 
-int					valid_link(t_swarm *swarm)
+int				valid_link(t_swarm *swarm)
 {
 	int		error;
 	char	*link_ptr;
@@ -47,7 +47,19 @@ int					valid_link(t_swarm *swarm)
 	return (1);
 }
 
-int			scan_colony(t_swarm *swarm)
+int				learn_room_type(t_swarm *swarm)
+{
+	int room_type;
+
+	room_type = (ft_strstr(swarm->sight, "##start")) ? 1 : 2;
+	room_type = (ft_strstr(swarm->sight, "##end")) ? 0 : room_type;
+	ft_memdel((void**)&swarm->sight);
+	if (get_next_line(swarm->fd, &swarm->sight) > 0)
+		ft_printf("%s\n", swarm->sight);
+	return (room_type);
+}
+
+int				scan_colony(t_swarm *swarm)
 {
 	int		room_type;
 
@@ -62,13 +74,7 @@ int			scan_colony(t_swarm *swarm)
 	}
 	if (swarm->sight != NULL && (ft_strstr(swarm->sight, "##start")
 		|| (ft_strstr(swarm->sight, "##end"))))
-	{
-		room_type = (ft_strstr(swarm->sight, "##start")) ? 1 : 2;
-		room_type = (ft_strstr(swarm->sight, "##end")) ? 0 : room_type;
-		ft_memdel((void**)&swarm->sight);
-		if (get_next_line(swarm->fd, &swarm->sight) > 0)
-			ft_printf("%s\n", swarm->sight);
-	}
+		room_type = learn_room_type(swarm);
 	if (swarm->sight != NULL && !(ft_strchr(swarm->sight, '#'))
 		&& !(ft_strchr(swarm->sight, '-')))
 		if (!(memorize_rooms(swarm, room_type)))
@@ -82,7 +88,7 @@ int			scan_colony(t_swarm *swarm)
 void			check_ants(t_swarm *swarm)
 {
 	ft_bzero((void *)swarm, sizeof(struct s_swarm));
-	// swarm->fd = open("our_maps/map_0.map", O_RDONLY);
+	swarm->fd = open("our_maps/map_1.map", O_RDONLY);
 	if (get_next_line(swarm->fd, &swarm->sight) > 0)
 	{
 		swarm->ants = ft_atoi(swarm->sight);

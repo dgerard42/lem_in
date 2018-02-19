@@ -17,7 +17,7 @@
 # include "printf/ft_printf.h"
 # include <math.h>
 # include <stdbool.h>
-#include <fcntl.h> //rm @ end
+# include <fcntl.h> //rm @ end
 
 /*
 **room type = 1 = start, 0 = end, 2 = middle
@@ -25,23 +25,23 @@
 **next = pointers to next malloced room
 */
 
-typedef	struct			s_room
+typedef	struct		s_room
 {
-	char				*name;
-	int					room_type;
-	int					x_coord;
-	int					y_coord;
-	bool				visited;
-	struct s_tunnel		*tunnels;
-	struct s_room		*next;
-}						t_room;
+	char			*name;
+	int				room_type;
+	int				x_coord;
+	int				y_coord;
+	bool			visited;
+	struct s_tunnel	*tunnels;
+	struct s_room	*next;
+}					t_room;
 
-typedef	struct			s_tunnel
+typedef	struct		s_tunnel
 {
-	struct s_room		*to_room;
-	int					length;
-	struct s_tunnel		*next;
-}						t_tunnel;
+	struct s_room	*to_room;
+	int				length;
+	struct s_tunnel	*next;
+}					t_tunnel;
 
 /*
 **rooms = how many instances of the room struct have been allocated, RM@END
@@ -82,7 +82,7 @@ void				destroy_colony(t_swarm *swarm);
 void				bfs(t_swarm *swarm);
 void				send_ants(t_swarm *swarm);
 int					handle_errors(t_swarm *swarm);
-// int						valid_link(char *link);
+int					valid_link(t_swarm *swarm);
 void				no_path(void);
 void				free_list(t_queue *head);
 t_queue				*new_queue(t_room *start, t_room *end, int dist);
@@ -90,14 +90,14 @@ t_queue				*init_queue(t_swarm *swarm);
 void				add_to_queue(t_queue *current, t_room *rm);
 void				lone_ant(char **path);
 int					memorize_rooms(t_swarm *swarm, int room_type);
-int					learn_connection(t_swarm *swarm, char *room_a, char *room_b);
+int					learn_connection(t_swarm *swarm, char *rooma, char *roomb);
 
 /*
 **test functions below. remove in the final version
 */
 
-void					check_inputs(t_swarm *swarm);
-void					open_testfiles(t_swarm *swarm, char *path);
-void					check_paths(char **swarms);
+void				check_inputs(t_swarm *swarm);
+void				open_testfiles(t_swarm *swarm, char *path);
+void				check_paths(char **swarms);
 
 #endif

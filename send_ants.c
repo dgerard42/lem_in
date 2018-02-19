@@ -12,35 +12,37 @@
 
 #include "lem_in.h"
 
-// int					valid_link(char *link)
-// {
-// 	char *link_ptr;
-//
-// 	link_ptr = link;
-// 	if (*link == '-')
-// 		return (0);
-// 	while (*link != '-')
-// 		link++;
-// 	link++;
-// 	if (*link == '\0')
-// 		return (0);
-// 	return (1);
-// }
+int					check_ends(t_swarm *swarm)
+{
+	t_room	*colony_ptr;
+	int		ends;
+
+	colony_ptr = swarm->colony;
+	ends = (colony_ptr->room_type == 0) ? 1 : 0;
+	colony_ptr = swarm->colony;
+	while (colony_ptr != NULL)
+	{
+		colony_ptr = colony_ptr->next;
+		if (colony_ptr != NULL && colony_ptr->room_type == 0)
+			ends++;
+	}
+	if (ends != 1)
+		return (0);
+	return (1);
+}
 
 int					handle_errors(t_swarm *swarm)
 {
 	t_room	*colony_ptr;
 	int		starts;
-	int		ends;
 
 	if (swarm->colony == NULL)
 		return (0);
 	colony_ptr = swarm->colony;
 	starts = (colony_ptr->room_type == 1) ? 1 : 0;
-	ends = (colony_ptr->room_type == 0) ? 1 : 0;
 	if (swarm->ants == 0)
 		return (0);
-	while (colony_ptr != NULL )
+	while (colony_ptr != NULL)
 	{
 		colony_ptr = colony_ptr->next;
 		if (colony_ptr != NULL && colony_ptr->room_type == 1)
@@ -48,14 +50,7 @@ int					handle_errors(t_swarm *swarm)
 	}
 	if (starts != 1)
 		return (0);
-	colony_ptr = swarm->colony;
-	while (colony_ptr != NULL )
-	{
-		colony_ptr = colony_ptr->next;
-		if (colony_ptr != NULL && colony_ptr->room_type == 0)
-			ends++;
-	}
-	if (ends != 1)
+	if (!check_ends(swarm))
 		return (0);
 	return (1);
 }

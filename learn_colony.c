@@ -34,7 +34,7 @@ int				find_distance(t_room *room_a, t_room *room_b)
 **save the new tunnel node to the end of the tunnel linked list of starting r.
 */
 
-int 			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
+int				learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 {
 	t_tunnel	*new_tunnel;
 	t_room		*colony_ptr;
@@ -64,7 +64,6 @@ int 			learn_connection(t_swarm *swarm, char *room_a, char *room_b)
 **add the pointer to the new node to the end of the list in the main struct
 */
 
-
 int				save_name(t_swarm *swarm, t_room *new_room)
 {
 	int		i;
@@ -83,7 +82,6 @@ int				save_name(t_swarm *swarm, t_room *new_room)
 		new_room->name[i++] = swarm->sight[j++];
 	j++;
 	return (j);
-
 }
 
 int				save_coords(t_room *new_room, char *look)
