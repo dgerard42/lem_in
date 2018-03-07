@@ -60,13 +60,13 @@ char				**ft_strsplit(const char *s, char c)
 	int		k;
 	char	*trimd;
 	char	**res;
+	char	*tmp;
 
 	j = 0;
-	trimd = ft_customtrim(s, c);
-	if (!trimd)
+	if (!(trimd = ft_customtrim(s, c)))
 		return (NULL);
-	res = ft_dyn2dstrnew(trimd, c);
-	if (!res)
+	tmp = trimd;
+	if (!(res = ft_dyn2dstrnew(trimd, c)))
 		return (NULL);
 	while (*trimd)
 	{
@@ -78,6 +78,7 @@ char				**ft_strsplit(const char *s, char c)
 			trimd++;
 		j++;
 	}
+	free(tmp);
 	res[j] = (NULL);
 	return (res);
 }
