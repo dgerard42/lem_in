@@ -6,13 +6,13 @@
 #    By: dgerard <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 17:24:50 by dgerard           #+#    #+#              #
-#    Updated: 2018/02/07 10:24:43 by dgerard          ###   ########.fr        #
+#    Updated: 2018/03/10 15:42:48 by sbalcort         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -Wall -Werror -Wextra
 
 LIBFT = libft/libft.a
 
@@ -25,7 +25,6 @@ SRCS =	main.c\
 		bfs_cont.c\
 		send_ants.c\
 		learn_colony.c\
-		kane_alloc_wrap.c\
 
 ODIR = ofiles
 

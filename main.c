@@ -6,7 +6,7 @@
 /*   By: dgerard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 22:42:07 by dgerard           #+#    #+#             */
-/*   Updated: 2018/01/24 09:21:35 by sbalcort         ###   ########.fr       */
+/*   Updated: 2018/02/18 19:16:20 by sbalcort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ int				scan_colony(t_swarm *swarm)
 	int		room_type;
 
 	room_type = 2;
-	ft_printf("%s\n", swarm->sight);
+	ft_putendl(swarm->sight);
 	if (ft_strchr(swarm->sight, '#') && !(ft_strstr(swarm->sight, "##start"))
 		&& !(ft_strstr(swarm->sight, "##end")))
 	{
 		ft_memdel((void**)&swarm->sight);
 		if (get_next_line(swarm->fd, &swarm->sight) > 0)
-			ft_printf("%s\n", swarm->sight);
+			ft_putendl(swarm->sight);
 	}
 	if (swarm->sight != NULL && (ft_strstr(swarm->sight, "##start")
 		|| (ft_strstr(swarm->sight, "##end"))))
@@ -92,7 +92,7 @@ void			check_ants(t_swarm *swarm)
 	if (get_next_line(swarm->fd, &swarm->sight) > 0)
 	{
 		swarm->ants = ft_atoi(swarm->sight);
-		ft_printf("%s\n", swarm->sight);
+		ft_putendl(swarm->sight);
 		ft_memdel((void**)&swarm->sight);
 	}
 }
@@ -109,19 +109,23 @@ int				main(void)
 		error = scan_colony(&swarm);
 		ft_memdel((void**)&swarm.sight);
 	}
-	if (!(handle_errors(&swarm)) || error == 0)
-	{
-		destroy_colony(&swarm);
-		ft_printf("ERROR\n");
-		return (0);
-	}
-	bfs(&swarm);
-	ft_printf("\n");
-	if (swarm.path)
-		((swarm.ants == 1) ? lone_ant(swarm.path) : send_ants(&swarm));
-	else
-		ft_printf("ERROR, no possible path\n");
+	// if (!(handle_errors(&swarm)) || error == 0)
+	// {
+	// 	destroy_colony(&swarm);
+	// 	ft_printf("ERROR\n");
+	// 	return (0);
+	// }
+	// bfs(&swarm);
+	// ft_printf("\n");
+	// if (swarm.path)
+	// 	((swarm.ants == 1) ? lone_ant(swarm.path) : send_ants(&swarm));
+	// else
+	// 	ft_printf("ERROR, no possible path\n");
 	// check_paths(swarm.path);
 	// check_inputs(&swarm);
+	while (1)
+	{
+		(void)error;
+	}
 	destroy_colony(&swarm);
 }
