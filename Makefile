@@ -6,13 +6,13 @@
 #    By: dgerard <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 17:24:50 by dgerard           #+#    #+#              #
-#    Updated: 2018/03/10 15:42:48 by sbalcort         ###   ########.fr        #
+#    Updated: 2018/03/10 17:05:52 by dgerard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 LIBFT = libft/libft.a
 
