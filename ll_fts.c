@@ -6,7 +6,7 @@
 /*   By: dgerard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:11:47 by dgerard           #+#    #+#             */
-/*   Updated: 2018/02/07 10:24:30 by dgerard          ###   ########.fr       */
+/*   Updated: 2018/03/10 18:39:54 by dgerard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_tunnel	*tunnel_lstnew(void)
 	return (new_tunnel);
 }
 
-void				ft_2dfreestring(char **string)
+void		ft_2dfreestring(char **string)
 {
 	int	i;
 

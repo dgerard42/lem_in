@@ -6,7 +6,7 @@
 /*   By: dgerard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 20:11:57 by dgerard           #+#    #+#             */
-/*   Updated: 2018/01/20 20:11:58 by dgerard          ###   ########.fr       */
+/*   Updated: 2018/03/10 18:39:37 by dgerard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "printf/ft_printf.h"
 # include <math.h>
 # include <stdbool.h>
-# include <fcntl.h> //rm @ end
 
 /*
 **room type = 1 = start, 0 = end, 2 = middle

@@ -6,7 +6,7 @@
 /*   By: dgerard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 22:42:07 by dgerard           #+#    #+#             */
-/*   Updated: 2018/01/24 09:21:35 by sbalcort         ###   ########.fr       */
+/*   Updated: 2018/03/10 18:39:29 by dgerard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int				scan_colony(t_swarm *swarm)
 void			check_ants(t_swarm *swarm)
 {
 	ft_bzero((void *)swarm, sizeof(struct s_swarm));
-	swarm->fd = open("our_maps/map_1.map", O_RDONLY);
 	if (get_next_line(swarm->fd, &swarm->sight) > 0)
 	{
 		swarm->ants = ft_atoi(swarm->sight);
@@ -120,8 +119,6 @@ int				main(void)
 	if (swarm.path)
 		((swarm.ants == 1) ? lone_ant(swarm.path) : send_ants(&swarm));
 	else
-		ft_printf("ERROR, no possible path\n");
-	// check_paths(swarm.path);
-	// check_inputs(&swarm);
+		ft_printf("ERROR\n");
 	destroy_colony(&swarm);
 }
